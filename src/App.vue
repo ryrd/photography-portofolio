@@ -7,3 +7,6 @@ import three from './components/three.vue';
     <three/>
   </div>
 </template>
+
+<style scoped>
+</style>
