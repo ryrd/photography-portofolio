@@ -5,8 +5,12 @@ import three from './components/three.vue';
 <template>
   <div>
     <three/>
+    <div id="down"></div>
   </div>
 </template>
 
 <style scoped>
+#down{
+  height: 1000vh;
+}
 </style>

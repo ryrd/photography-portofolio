@@ -2,7 +2,7 @@
 import { ref, onMounted} from 'vue';
 import { AmbientLight, DirectionalLightHelper, RectAreaLight, TextureLoader, Raycaster, PlaneGeometry, BackSide,BoxGeometry, CubeCamera, CircleGeometry, Color as TColor, DirectionalLight, Mesh, MeshBasicMaterial, MeshStandardMaterial, PerspectiveCamera, DoubleSide, PointLight, Scene, SphereGeometry, Vector2, WebGLRenderer, Light} from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { Reflector } from 'three/examples/jsm/objects/Reflector'
 import {UnrealBloomPass} from 'three/examples/jsm/postprocessing/UnrealBloomPass'
 import {RenderPass} from 'three/examples/jsm/postprocessing/RenderPass'
@@ -21,9 +21,9 @@ scene = new Scene()
 // scene.background = new TColor(0x555555)
 
 camera = new PerspectiveCamera(63, window.innerWidth/window.innerHeight, .1, 10000)
-camera.position.set(0,0,1.5)
+// camera.position.set(0,0,0)
 
-const directionalLight = new DirectionalLight(0x66a5ff, 3)
+const directionalLight = new DirectionalLight(0x66a5ff, 1)
 directionalLight.position.set(0,1,-5)
 directionalLight.rotation.set(-1.3,0,0)
 scene.add(directionalLight)
@@ -85,12 +85,21 @@ const pic1 = new TextureLoader().load('/photos/rr 7.jpg')
 const photoBox1Geo = new PlaneGeometry(.1, .1)
 const photoBox1Mat = new MeshBasicMaterial({map: pic1})
 const photoBox1 = new Mesh(photoBox1Geo, photoBox1Mat)
-photoBox1.position.set(-0.18,0.067,1.164)
+photoBox1.position.set(-0.18,0.067,-1.164)
 // gui.add(photoBox1.position, 'x').min(-1).max(1).step(.001)
 // gui.add(photoBox1.position, 'y').min(0).max(1).step(.001)
 // gui.add(photoBox1.position, 'z').min(-2).max(2).step(.001)
-
 scene.add(photoBox1)
+
+const pic2 = new TextureLoader().load('/photos/rr 7.jpg')
+const photoBox2Geo = new PlaneGeometry(.1, .1)
+const photoBox2Mat = new MeshBasicMaterial({map: pic1})
+const photoBox2 = new Mesh(photoBox1Geo, photoBox1Mat)
+photoBox2.position.set(0.18,0.067,1.164)
+// gui.add(photoBox1.position, 'x').min(-1).max(1).step(.001)
+// gui.add(photoBox1.position, 'y').min(0).max(1).step(.001)
+// gui.add(photoBox1.position, 'z').min(-2).max(2).step(.001)
+scene.add(photoBox2)
 
 function animate(){
   renderer.setSize(window.innerWidth, window.innerHeight)
@@ -108,18 +117,23 @@ onMounted(() => {
   renderer.setSize(window.innerWidth, window.innerHeight)
   renderer.render(scene, camera)
 
-  controls = new OrbitControls(camera, renderer.domElement)
+  // controls = new OrbitControls(camera, renderer.domElement)
 
   const renderScene = new RenderPass(scene, camera)
   composer = new EffectComposer(renderer)
   composer.addPass(renderScene)
   const bloomPass = new UnrealBloomPass(
   new Vector2(window.innerWidth, window.innerHeight),
-    .8,
-    .1,
+    .9,
+    .3,
     .1
   )
   composer.addPass(bloomPass)
+
+  window.addEventListener("scroll", () => {
+    const top = document.body.getBoundingClientRect().top
+    camera.position.z = top*-0.007
+  })
 
   window.addEventListener("mousedown", e => {
     pointer.x = (e.clientX/window.innerWidth)*2-1
