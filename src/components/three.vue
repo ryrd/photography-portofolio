@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted} from 'vue';
-import { AmbientLight, DirectionalLightHelper, RectAreaLight, Raycaster, PlaneGeometry, BackSide,BoxGeometry, CubeCamera, CircleGeometry, Color as TColor, DirectionalLight, Mesh, MeshBasicMaterial, MeshStandardMaterial, PerspectiveCamera, DoubleSide, PointLight, Scene, SphereGeometry, Vector2, WebGLRenderer, Light} from 'three'
+import { AmbientLight, DirectionalLightHelper, RectAreaLight, TextureLoader, Raycaster, PlaneGeometry, BackSide,BoxGeometry, CubeCamera, CircleGeometry, Color as TColor, DirectionalLight, Mesh, MeshBasicMaterial, MeshStandardMaterial, PerspectiveCamera, DoubleSide, PointLight, Scene, SphereGeometry, Vector2, WebGLRenderer, Light} from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { Reflector } from 'three/examples/jsm/objects/Reflector'
@@ -81,8 +81,9 @@ scene.add(mirror)
 // darkenerMesh.position.set(0, -0.15, 2000)
 // scene.add(darkenerMesh)
 
+const pic1 = new TextureLoader().load('/photos/rr 7.jpg')
 const photoBox1Geo = new PlaneGeometry(.1, .1)
-const photoBox1Mat = new MeshBasicMaterial({color: 0x1111FF})
+const photoBox1Mat = new MeshBasicMaterial({map: pic1})
 const photoBox1 = new Mesh(photoBox1Geo, photoBox1Mat)
 photoBox1.position.set(-0.18,0.067,1.164)
 // gui.add(photoBox1.position, 'x').min(-1).max(1).step(.001)
