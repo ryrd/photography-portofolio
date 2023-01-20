@@ -12,16 +12,18 @@ import {GUI} from 'dat.gui'
 const canvasRef = ref()
 
 let scene: Scene, camera: PerspectiveCamera, renderer: WebGLRenderer, controls: any, composer: any
+const pointer = new Vector2()
+const raycaster = new Raycaster()
 
 const gui = new GUI()
 
 scene = new Scene()
 // scene.background = new TColor(0x555555)
 
-camera = new PerspectiveCamera(63, window.innerWidth/window.innerHeight, 1, 10000)
+camera = new PerspectiveCamera(63, window.innerWidth/window.innerHeight, .1, 10000)
 camera.position.set(0,0,1.5)
 
-const directionalLight = new DirectionalLight(0x66a5ff, 5)
+const directionalLight = new DirectionalLight(0x66a5ff, 3)
 directionalLight.position.set(0,1,-5)
 directionalLight.rotation.set(-1.3,0,0)
 scene.add(directionalLight)
@@ -48,45 +50,54 @@ loader.load('/boy.glb', (gltf: any) => {
     animate()
 })
 
-const boxgeometry = new BoxGeometry( 3.4, 4.5, 1 )
-const boxmaterial = new MeshBasicMaterial({color: 0x66a5ff})
-const cube = new Mesh( boxgeometry, boxmaterial )
-cube.position.set(0, 1.2, -10.2)
-scene.add(cube)
+const boxLight = new BoxGeometry( 3.4, 4.5, .1 )
+const boxLightMaterial = new MeshBasicMaterial({color: 0x66a5ff})
+const lightBox = new Mesh( boxLight, boxLightMaterial )
+lightBox.position.set(0, 1.25, -10.2)
+scene.add(lightBox)
 // gui.add(cube.scale, 'x').min(-10).max(10).step(.1)
 
-
-// const mirrorGeometry = new PlaneGeometry(3000, 5000)
-// const mirror = new Reflector(mirrorGeometry, {
-//   textureWidth : window.innerWidth*window.devicePixelRatio, 
-//   textureHeight : window.innerHeight*window.devicePixelRatio,
-//   color: 0x808080,
-// })
-// mirror.rotation.set(4.71, 0, 0)
-// mirror.position.set(0, -51, 2000)
-// scene.add(mirror)
-
-const darkernerGeometry = new PlaneGeometry(100, 500)
-const darkenerMaterial = new MeshStandardMaterial({
-  color: 0x555555,
-  transparent: true,
-  opacity: 1,
-  side: DoubleSide
-  // metalness: 1
+const mirrorGeometry = new PlaneGeometry(100, 500)
+const mirror = new Reflector(mirrorGeometry, {
+  textureWidth : window.innerWidth*window.devicePixelRatio, 
+  textureHeight : window.innerHeight*window.devicePixelRatio,
+  color: 0x808080,
 })
-const darkenerMesh = new Mesh(darkernerGeometry, darkenerMaterial) 
-darkenerMesh.rotation.set(4.71, 0, 0)
-darkenerMesh.position.set(0, -0.445, 240)
+mirror.rotation.set(4.71, 0, 0)
+mirror.position.set(0, -1, 0)
+// gui.add(mirror.position, 'y').min(-3).max(5).step(.001)
+scene.add(mirror)
 
-scene.add(darkenerMesh)
+// const darkernerGeometry = new PlaneGeometry(100, 500)
+// const darkenerMaterial = new MeshStandardMaterial({
+//   color: 0xFFFFFF,
+//   transparent: true,
+//   opacity: 1,
+//   side: DoubleSide
+//   metalness: 1
+// })
+// const darkenerMesh = new Mesh(darkernerGeometry, darkenerMaterial) 
+// darkenerMesh.rotation.set(4.71, 0, 0)
+// darkenerMesh.position.set(0, -0.15, 2000)
+// scene.add(darkenerMesh)
+
+const photoBox1Geo = new PlaneGeometry(.1, .1)
+const photoBox1Mat = new MeshBasicMaterial({color: 0x1111FF})
+const photoBox1 = new Mesh(photoBox1Geo, photoBox1Mat)
+photoBox1.position.set(-0.18,0.067,1.164)
+// gui.add(photoBox1.position, 'x').min(-1).max(1).step(.001)
+// gui.add(photoBox1.position, 'y').min(0).max(1).step(.001)
+// gui.add(photoBox1.position, 'z').min(-2).max(2).step(.001)
+
+scene.add(photoBox1)
 
 function animate(){
   renderer.setSize(window.innerWidth, window.innerHeight)
   camera.aspect = window.innerWidth/window.innerHeight
   camera.updateProjectionMatrix()
 
-  renderer.render(scene, camera)
-  // composer.render()
+  // renderer.render(scene, camera)
+  composer.render()
   
   requestAnimationFrame(animate)
 }
@@ -97,18 +108,27 @@ onMounted(() => {
   renderer.render(scene, camera)
 
   controls = new OrbitControls(camera, renderer.domElement)
-  // controls.maxPolarAngle = Math.PI / 2;
 
-  // const renderScene = new RenderPass(scene, camera)
-  // composer = new EffectComposer(renderer)
-  // composer.addPass(renderScene)
-  // const bloomPass = new UnrealBloomPass(
-  // new Vector2(window.innerWidth, window.innerHeight),
-  //   .8,
-  //   .1,
-  //   .1
-  // )
-  // composer.addPass(bloomPass)
+  const renderScene = new RenderPass(scene, camera)
+  composer = new EffectComposer(renderer)
+  composer.addPass(renderScene)
+  const bloomPass = new UnrealBloomPass(
+  new Vector2(window.innerWidth, window.innerHeight),
+    .8,
+    .1,
+    .1
+  )
+  composer.addPass(bloomPass)
+
+  window.addEventListener("mousedown", e => {
+    pointer.x = (e.clientX/window.innerWidth)*2-1
+    pointer.y = -(e.clientY/window.innerHeight)*2+1
+
+    raycaster.setFromCamera(pointer, camera)
+    const intersect = raycaster.intersectObjects(scene.children)[0] || null
+
+    if (intersect !== null ) console.log(intersect);
+  })
 
   animate()
 });
