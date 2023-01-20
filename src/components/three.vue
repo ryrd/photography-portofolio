@@ -11,16 +11,20 @@ import {GUI} from 'dat.gui'
 
 const canvasRef = ref()
 
-let scene: Scene, camera: PerspectiveCamera, renderer: WebGLRenderer, controls: any, composer: any
+// let scene: Scene, camera: PerspectiveCamera, renderer: WebGLRenderer, controls: any, composer: any
+let renderer: WebGLRenderer, composer: any
+let scrollable = true
+let prevX: number, prevY: number, prevZ: number
+
 const pointer = new Vector2()
 const raycaster = new Raycaster()
 
 const gui = new GUI()
 
-scene = new Scene()
+const scene = new Scene()
 // scene.background = new TColor(0x555555)
 
-camera = new PerspectiveCamera(63, window.innerWidth/window.innerHeight, .1, 10000)
+const camera = new PerspectiveCamera(63, window.innerWidth/window.innerHeight, .1, 10000)
 // camera.position.set(0,0,0)
 
 const directionalLight = new DirectionalLight(0x66a5ff, 1)
@@ -94,7 +98,7 @@ scene.add(photoBox1)
 const pic2 = new TextureLoader().load('/photos/rr 7.jpg')
 const photoBox2Geo = new PlaneGeometry(.1, .1)
 const photoBox2Mat = new MeshBasicMaterial({map: pic1})
-const photoBox2 = new Mesh(photoBox1Geo, photoBox1Mat)
+const photoBox2 = new Mesh(photoBox2Geo, photoBox2Mat)
 photoBox2.position.set(0.18,0.067,1.164)
 // gui.add(photoBox1.position, 'x').min(-1).max(1).step(.001)
 // gui.add(photoBox1.position, 'y').min(0).max(1).step(.001)
@@ -106,8 +110,8 @@ function animate(){
   camera.aspect = window.innerWidth/window.innerHeight
   camera.updateProjectionMatrix()
 
-  // renderer.render(scene, camera)
-  composer.render()
+  renderer.render(scene, camera)
+  // composer.render()
   
   requestAnimationFrame(animate)
 }
@@ -119,20 +123,20 @@ onMounted(() => {
 
   // controls = new OrbitControls(camera, renderer.domElement)
 
-  const renderScene = new RenderPass(scene, camera)
-  composer = new EffectComposer(renderer)
-  composer.addPass(renderScene)
-  const bloomPass = new UnrealBloomPass(
-  new Vector2(window.innerWidth, window.innerHeight),
-    .9,
-    .3,
-    .1
-  )
-  composer.addPass(bloomPass)
+  // const renderScene = new RenderPass(scene, camera)
+  // composer = new EffectComposer(renderer)
+  // composer.addPass(renderScene)
+  // const bloomPass = new UnrealBloomPass(
+  // new Vector2(window.innerWidth, window.innerHeight),
+  //   .9,
+  //   .3,
+  //   .1
+  // )
+  // composer.addPass(bloomPass)
 
   window.addEventListener("scroll", () => {
     const top = document.body.getBoundingClientRect().top
-    camera.position.z = top*-0.007
+    if (scrollable) camera.position.z = top*-0.007
   })
 
   window.addEventListener("mousedown", e => {
@@ -142,8 +146,30 @@ onMounted(() => {
     raycaster.setFromCamera(pointer, camera)
     const intersect = raycaster.intersectObjects(scene.children)[0] || null
 
-    if (intersect !== null ) console.log(intersect);
+    if (intersect !== null ) {
+      console.log(intersect)
+      scrollable = !scrollable
+
+      if (!scrollable) {
+        prevX = intersect.object.position.x
+        prevY = intersect.object.position.y
+        prevZ = intersect.object.position.z
+        document.body.style.overflowY = 'hidden'
+        intersect.object.position.x = 0
+        intersect.object.position.y = 0
+        intersect.object.position.z = ((document.body.getBoundingClientRect().top)*-0.007)-.15
+      }
+      else{
+        document.body.style.overflowY = 'scroll'
+        intersect.object.position.x = prevX
+        intersect.object.position.y = prevY
+        intersect.object.position.z = prevZ
+        prevX = 0; prevY = 0; prevZ = 0;
+      }
+
+    };
   })
+  
 
   animate()
 });
