@@ -7,12 +7,13 @@ import { Reflector } from 'three/examples/jsm/objects/Reflector'
 import {UnrealBloomPass} from 'three/examples/jsm/postprocessing/UnrealBloomPass'
 import {RenderPass} from 'three/examples/jsm/postprocessing/RenderPass'
 import {EffectComposer} from 'three/examples/jsm/postprocessing/EffectComposer'
+import gsap, {Power4} from 'gsap'
 import {GUI} from 'dat.gui'
 
 const canvasRef = ref()
 
 // let scene: Scene, camera: PerspectiveCamera, renderer: WebGLRenderer, controls: any, composer: any
-let renderer: WebGLRenderer, composer: any
+let renderer: WebGLRenderer, composer: any, controls: any
 let scrollable = true
 let prevX: number, prevY: number, prevZ: number
 
@@ -27,7 +28,7 @@ const scene = new Scene()
 const camera = new PerspectiveCamera(63, window.innerWidth/window.innerHeight, .1, 10000)
 // camera.position.set(0,0,0)
 
-const directionalLight = new DirectionalLight(0x66a5ff, 1)
+const directionalLight = new DirectionalLight(0x0071f2, 1)
 directionalLight.position.set(0,1,-5)
 directionalLight.rotation.set(-1.3,0,0)
 scene.add(directionalLight)
@@ -55,7 +56,7 @@ loader.load('/boy.glb', (gltf: any) => {
 })
 
 const boxLight = new BoxGeometry( 3.4, 4.5, .1 )
-const boxLightMaterial = new MeshBasicMaterial({color: 0x66a5ff})
+const boxLightMaterial = new MeshBasicMaterial({color: 0x60aaff})
 const lightBox = new Mesh( boxLight, boxLightMaterial )
 lightBox.position.set(0, 1.25, -10.2)
 scene.add(lightBox)
@@ -93,13 +94,14 @@ photoBox1.position.set(-0.18,0.067,-1.164)
 // gui.add(photoBox1.position, 'x').min(-1).max(1).step(.001)
 // gui.add(photoBox1.position, 'y').min(0).max(1).step(.001)
 // gui.add(photoBox1.position, 'z').min(-2).max(2).step(.001)
+photoBox1.name = 'photo'
 scene.add(photoBox1)
 
-const pic2 = new TextureLoader().load('/photos/rr 7.jpg')
 const photoBox2Geo = new PlaneGeometry(.1, .1)
 const photoBox2Mat = new MeshBasicMaterial({map: pic1})
 const photoBox2 = new Mesh(photoBox2Geo, photoBox2Mat)
 photoBox2.position.set(0.18,0.067,1.164)
+photoBox2.name = 'photo'
 // gui.add(photoBox1.position, 'x').min(-1).max(1).step(.001)
 // gui.add(photoBox1.position, 'y').min(0).max(1).step(.001)
 // gui.add(photoBox1.position, 'z').min(-2).max(2).step(.001)
@@ -110,8 +112,8 @@ function animate(){
   camera.aspect = window.innerWidth/window.innerHeight
   camera.updateProjectionMatrix()
 
-  renderer.render(scene, camera)
-  // composer.render()
+  // renderer.render(scene, camera)
+  composer.render()
   
   requestAnimationFrame(animate)
 }
@@ -123,16 +125,16 @@ onMounted(() => {
 
   // controls = new OrbitControls(camera, renderer.domElement)
 
-  // const renderScene = new RenderPass(scene, camera)
-  // composer = new EffectComposer(renderer)
-  // composer.addPass(renderScene)
-  // const bloomPass = new UnrealBloomPass(
-  // new Vector2(window.innerWidth, window.innerHeight),
-  //   .9,
-  //   .3,
-  //   .1
-  // )
-  // composer.addPass(bloomPass)
+  const renderScene = new RenderPass(scene, camera)
+  composer = new EffectComposer(renderer)
+  composer.addPass(renderScene)
+  const bloomPass = new UnrealBloomPass(
+  new Vector2(window.innerWidth, window.innerHeight),
+    .9,
+    .3,
+    .1
+  )
+  composer.addPass(bloomPass)
 
   window.addEventListener("scroll", () => {
     const top = document.body.getBoundingClientRect().top
@@ -146,8 +148,8 @@ onMounted(() => {
     raycaster.setFromCamera(pointer, camera)
     const intersect = raycaster.intersectObjects(scene.children)[0] || null
 
-    if (intersect !== null ) {
-      console.log(intersect)
+    // console.log(intersect.object.name)
+    if (intersect !== null && intersect.object.name === 'photo' ) {
       scrollable = !scrollable
 
       if (!scrollable) {
@@ -155,15 +157,23 @@ onMounted(() => {
         prevY = intersect.object.position.y
         prevZ = intersect.object.position.z
         document.body.style.overflowY = 'hidden'
-        intersect.object.position.x = 0
-        intersect.object.position.y = 0
-        intersect.object.position.z = ((document.body.getBoundingClientRect().top)*-0.007)-.15
+        gsap.to(intersect.object.position , {
+          duration: 0.3,
+          ease: Power4.easeOut,
+          x : 0,
+          y : 0,
+          z : ((document.body.getBoundingClientRect().top)*-0.007)-.18,
+        })
       }
       else{
         document.body.style.overflowY = 'scroll'
-        intersect.object.position.x = prevX
-        intersect.object.position.y = prevY
-        intersect.object.position.z = prevZ
+        gsap.to(intersect.object.position , {
+          duration: 0.3,
+          ease: Power4.easeInOut,
+          x : prevX,
+          y : prevY,
+          z : prevZ,
+        })
         prevX = 0; prevY = 0; prevZ = 0;
       }
 
