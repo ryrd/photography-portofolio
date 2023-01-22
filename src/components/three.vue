@@ -109,7 +109,7 @@ data.forEach((image: imageType) => {
   const photoBoxMat = new MeshBasicMaterial({map: imgUrl})
   const photoBox = new Mesh(photoBoxGeo, photoBoxMat)
   photoBox.position.set(image.position.x,image.position.y,image.position.z)
-  photoBox.name = 'photo'
+  photoBox.name = "photo"
   scene.add(photoBox)
 });
 
@@ -156,7 +156,7 @@ onMounted(() => {
     const intersect = raycaster.intersectObjects(scene.children)[0] || null
 
     // console.log(intersect.object)
-    if (intersect !== null && intersect.object.name === 'photo' ) {
+    if (intersect !== null && intersect.object.name === "photo" ) {
       scrollable = !scrollable
 
       if (!scrollable) {

@@ -16,7 +16,7 @@ const data: dataType[] = [
         photo: '/photos/img-5.webp',
         dimension: {
             width: .1,
-            height: .15
+            height: .15,
         },
         position: {
             x: .6,
@@ -28,7 +28,7 @@ const data: dataType[] = [
         photo: '/photos/img-1.webp',
         dimension: {
             width: .1,
-            height: .15
+            height: .15,
         },
         position: {
             x: -0.633,
@@ -40,7 +40,7 @@ const data: dataType[] = [
         photo: '/photos/img-8.webp',
         dimension: {
             width: .15,
-            height: .1
+            height: .1,
         },
         position: {
             x: 0.57,
@@ -52,7 +52,7 @@ const data: dataType[] = [
         photo: '/photos/img-10.webp',
         dimension: {
             width: .1,
-            height: .13
+            height: .13,
         },
         position: {
             x: 1.2,
@@ -64,7 +64,7 @@ const data: dataType[] = [
         photo: 'https://source.unsplash.com/qStCjo_Ve8s',
         dimension: {
             width: .21,
-            height: .1
+            height: .1,
         },
         position: {
             x: -.7,
@@ -76,7 +76,7 @@ const data: dataType[] = [
         photo: 'https://source.unsplash.com/UY3Un7Apd7g',
         dimension: {
             width: .25,
-            height: .1
+            height: .1,
         },
         position: {
             x: 0.57,
@@ -88,7 +88,7 @@ const data: dataType[] = [
         photo: 'https://source.unsplash.com/Z13HfI7Bd6s',
         dimension: {
             width: .23,
-            height: .1
+            height: .1,
         },
         position: {
             x: -1,
@@ -100,12 +100,24 @@ const data: dataType[] = [
         photo: 'https://source.unsplash.com/FzhS_Qhf3y4',
         dimension: {
             width: .23,
-            height: .1
+            height: .1,
         },
         position: {
             x: 0.57,
             y: 0.9,
             z: 1.8
+        }
+    },
+    {
+        photo: 'https://source.unsplash.com/rbCyuDEOZfg',
+        dimension: {
+            width: .15,
+            height: .1,
+        },
+        position: {
+            x: 1.3,
+            y: -0.1,
+            z: 1.65
         }
     },
 ]
