@@ -44,7 +44,7 @@ const data: dataType[] = [
         },
         position: {
             x: 0.57,
-            y: -0.1,
+            y: -0.18,
             z: -0.574
         }
     },
@@ -82,6 +82,30 @@ const data: dataType[] = [
             x: 0.57,
             y: 0.3,
             z: 1
+        }
+    },
+    {
+        photo: 'https://source.unsplash.com/Z13HfI7Bd6s',
+        dimension: {
+            width: .23,
+            height: .1
+        },
+        position: {
+            x: -1,
+            y: 0.3,
+            z: 1.5
+        }
+    },
+    {
+        photo: 'https://source.unsplash.com/FzhS_Qhf3y4',
+        dimension: {
+            width: .23,
+            height: .1
+        },
+        position: {
+            x: 0.57,
+            y: 0.9,
+            z: 1.8
         }
     },
 ]

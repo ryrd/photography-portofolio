@@ -137,7 +137,7 @@ onMounted(() => {
   composer.addPass(renderScene)
   const bloomPass = new UnrealBloomPass(
     new Vector2(window.innerWidth, window.innerHeight),
-    .7,
+    .65,
     .5,
     0
   )
