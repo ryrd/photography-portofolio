@@ -10,12 +10,18 @@ import {EffectComposer} from 'three/examples/jsm/postprocessing/EffectComposer'
 import gsap, {Power4} from 'gsap'
 import {GUI} from 'dat.gui'
 
+import data, {dataType} from '../data'
+
 const canvasRef = ref()
 
 // let scene: Scene, camera: PerspectiveCamera, renderer: WebGLRenderer, controls: any, composer: any
 let renderer: WebGLRenderer, composer: any, controls: any
 let scrollable = true
-let prevX: number, prevY: number, prevZ: number
+const prevCoordinate = {
+  X : 0,
+  Y : 0,
+  Z : 0,
+}
 
 const pointer = new Vector2()
 const raycaster = new Raycaster()
@@ -40,8 +46,8 @@ scene.add(directionalLight)
 // gui.add(directionalLight.rotation, 'y').min(-5).max(5).step(0.1)
 // gui.add(directionalLight.rotation, 'z').min(-5).max(5).step(0.1)
 // scene.add( helper );
-// const ambientLight = new AmbientLight(0x66a5ff, 1)
-// scene.add(ambientLight)
+const ambientLight = new AmbientLight(0x66a5ff, .2)
+scene.add(ambientLight)
 
 const loader = new GLTFLoader()
 loader.load('/boy.glb', (gltf: any) => {
@@ -73,39 +79,40 @@ mirror.position.set(0, -1, 0)
 // gui.add(mirror.position, 'y').min(-3).max(5).step(.001)
 scene.add(mirror)
 
-// const darkernerGeometry = new PlaneGeometry(100, 500)
-// const darkenerMaterial = new MeshStandardMaterial({
-//   color: 0xFFFFFF,
-//   transparent: true,
-//   opacity: 1,
-//   side: DoubleSide
-//   metalness: 1
-// })
-// const darkenerMesh = new Mesh(darkernerGeometry, darkenerMaterial) 
-// darkenerMesh.rotation.set(4.71, 0, 0)
-// darkenerMesh.position.set(0, -0.15, 2000)
-// scene.add(darkenerMesh)
-
-const pic1 = new TextureLoader().load('/photos/rr 7.jpg')
-const photoBox1Geo = new PlaneGeometry(.1, .1)
+const pic1 = new TextureLoader().load('/photos/img-5.webp')
+const photoBox1Geo = new PlaneGeometry(.1, .15)
 const photoBox1Mat = new MeshBasicMaterial({map: pic1})
 const photoBox1 = new Mesh(photoBox1Geo, photoBox1Mat)
-photoBox1.position.set(-0.18,0.067,-1.164)
-// gui.add(photoBox1.position, 'x').min(-1).max(1).step(.001)
-// gui.add(photoBox1.position, 'y').min(0).max(1).step(.001)
-// gui.add(photoBox1.position, 'z').min(-2).max(2).step(.001)
+photoBox1.position.set(0.633,0.346,-0.877)
 photoBox1.name = 'photo'
-scene.add(photoBox1)
+gui.add(photoBox1.position, 'x').min(-1).max(1).step(.001)
+gui.add(photoBox1.position, 'y').min(0).max(1).step(.001)
+gui.add(photoBox1.position, 'z').min(-2).max(2).step(.001)
+// scene.add(photoBox1)
 
-const photoBox2Geo = new PlaneGeometry(.1, .1)
-const photoBox2Mat = new MeshBasicMaterial({map: pic1})
-const photoBox2 = new Mesh(photoBox2Geo, photoBox2Mat)
-photoBox2.position.set(0.18,0.067,1.164)
-photoBox2.name = 'photo'
-// gui.add(photoBox1.position, 'x').min(-1).max(1).step(.001)
-// gui.add(photoBox1.position, 'y').min(0).max(1).step(.001)
-// gui.add(photoBox1.position, 'z').min(-2).max(2).step(.001)
-scene.add(photoBox2)
+interface imageType {
+  photo: string,
+  dimension: {
+    width: number,
+    height: number,
+  };
+  position: {
+    x: number,
+    y: number,
+    z: number,
+  }
+}
+
+data.forEach((image: imageType) => {
+  const imgUrl = new TextureLoader().load(image.photo)
+  const photoBoxGeo = new PlaneGeometry(image.dimension.width, image.dimension.height)
+  const photoBoxMat = new MeshBasicMaterial({map: imgUrl})
+  const photoBox = new Mesh(photoBoxGeo, photoBoxMat)
+  photoBox.position.set(image.position.x,image.position.y,image.position.z)
+  photoBox.name = 'photo'
+  scene.add(photoBox)
+});
+
 
 function animate(){
   renderer.setSize(window.innerWidth, window.innerHeight)
@@ -129,10 +136,10 @@ onMounted(() => {
   composer = new EffectComposer(renderer)
   composer.addPass(renderScene)
   const bloomPass = new UnrealBloomPass(
-  new Vector2(window.innerWidth, window.innerHeight),
-    .9,
-    .3,
-    .1
+    new Vector2(window.innerWidth, window.innerHeight),
+    .7,
+    .5,
+    0
   )
   composer.addPass(bloomPass)
 
@@ -148,16 +155,18 @@ onMounted(() => {
     raycaster.setFromCamera(pointer, camera)
     const intersect = raycaster.intersectObjects(scene.children)[0] || null
 
-    // console.log(intersect.object.name)
+    // console.log(intersect.object)
     if (intersect !== null && intersect.object.name === 'photo' ) {
       scrollable = !scrollable
 
       if (!scrollable) {
-        prevX = intersect.object.position.x
-        prevY = intersect.object.position.y
-        prevZ = intersect.object.position.z
+        prevCoordinate.X = intersect.object.position.x
+        prevCoordinate.Y = intersect.object.position.y
+        prevCoordinate.Z = intersect.object.position.z
+
         document.body.style.overflowY = 'hidden'
-        gsap.to(intersect.object.position , {
+        
+        gsap.to(intersect.object.position, {
           duration: 0.3,
           ease: Power4.easeOut,
           x : 0,
@@ -167,20 +176,22 @@ onMounted(() => {
       }
       else{
         document.body.style.overflowY = 'scroll'
+
         gsap.to(intersect.object.position , {
           duration: 0.3,
           ease: Power4.easeInOut,
-          x : prevX,
-          y : prevY,
-          z : prevZ,
+          x : prevCoordinate.X,
+          y : prevCoordinate.Y,
+          z : prevCoordinate.Z,
         })
-        prevX = 0; prevY = 0; prevZ = 0;
+        prevCoordinate.X = 0; 
+        prevCoordinate.Y = 0; 
+        prevCoordinate.Z = 0;
       }
 
     };
   })
   
-
   animate()
 });
 

@@ -13,6 +13,6 @@ import text from './components/text.vue';
 
 <style scoped>
 #down{
-  height: 400vh;
+  height: 200vh;
 }
 </style>
