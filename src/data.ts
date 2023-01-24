@@ -244,7 +244,7 @@ const data: dataType[] = [
         photo: '/photos/img-6.webp',
         dimension: {
             width: .1,
-            height: .15,
+            height: .135,
         },
         position: {
             x: -.4,
@@ -255,7 +255,7 @@ const data: dataType[] = [
     {
         photo: '/photos/img-15.webp',
         dimension: {
-            width: .14,
+            width: .135,
             height: .1,
         },
         position: {

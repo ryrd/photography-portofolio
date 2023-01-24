@@ -10,6 +10,8 @@ import {EffectComposer} from 'three/examples/jsm/postprocessing/EffectComposer'
 import gsap, {Power4} from 'gsap'
 import {GUI} from 'dat.gui'
 
+import txt from './txt.vue';
+
 import data, {dataType} from '../data'
 
 const canvasRef = ref()
@@ -126,7 +128,7 @@ function animate(){
 }
 
 onMounted(() => {
-  renderer = new WebGLRenderer({canvas: canvasRef.value})
+  renderer = new WebGLRenderer({canvas: canvasRef.value })
   renderer.setSize(window.innerWidth, window.innerHeight)
   renderer.render(scene, camera)
 
@@ -177,7 +179,7 @@ onMounted(() => {
       else{
         document.body.style.overflowY = 'scroll'
 
-        gsap.to(intersect.object.position , {
+        gsap.to(intersect.object.position, {
           duration: 0.3,
           ease: Power4.easeInOut,
           x : prevCoordinate.X,
@@ -200,11 +202,15 @@ onMounted(() => {
 <template>
     <div>
         <canvas ref="canvasRef"/>
+        <txt/>
     </div>
 </template>
 
 <style scoped>
 canvas{
     position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
 }
 </style>

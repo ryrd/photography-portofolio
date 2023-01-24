@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import three from './components/three.vue';
-import text from './components/text.vue';
 </script>
 
 <template>
   <div>
     <three/>
-    <!-- <text/> -->
-    <div id="down"></div>
+    <div id="down"/>
   </div>
 </template>
 
@@ -15,9 +13,12 @@ import text from './components/text.vue';
 ::-webkit-scrollbar{
     width: 0px;
 }
-
+html, body{
+  overflow-x: hidden;
+  width: 100vw;
+}
 #down{
-  height: 320vh;
+  height: 400vh;
 }
 @media (max-width:780px) {
   #down{
