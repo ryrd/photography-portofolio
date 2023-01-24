@@ -13,27 +13,15 @@ export interface dataType {
 
 const data: dataType[] = [
     {
-        photo: '/photos/img-5.webp',
-        dimension: {
-            width: .1,
-            height: .15,
-        },
-        position: {
-            x: .6,
-            y: 0.5,
-            z: -2
-        }
-    },
-    {
         photo: '/photos/img-1.webp',
         dimension: {
             width: .1,
             height: .15,
         },
         position: {
-            x: -0.633,
+            x: -0.7,
             y: 0.3,
-            z: -0.877
+            z: -0.5
         }
     },
     {
@@ -43,9 +31,9 @@ const data: dataType[] = [
             height: .1,
         },
         position: {
-            x: 0.57,
+            x: 1.25,
             y: -0.18,
-            z: -0.574
+            z: 0
         }
     },
     {
@@ -55,9 +43,9 @@ const data: dataType[] = [
             height: .13,
         },
         position: {
-            x: 1.2,
-            y: .2,
-            z: .75
+            x: 1.7,
+            y: .7,
+            z: 1.75
         }
     },
     {
@@ -67,9 +55,9 @@ const data: dataType[] = [
             height: .1,
         },
         position: {
-            x: -.7,
+            x: -1.4,
             y: -.1,
-            z: .8
+            z: 2.5
         }
     },
     {
@@ -79,9 +67,9 @@ const data: dataType[] = [
             height: .1,
         },
         position: {
-            x: 0.57,
-            y: 0.3,
-            z: 1
+            x: 0.9,
+            y: 0.35,
+            z: 3.3
         }
     },
     {
@@ -91,9 +79,9 @@ const data: dataType[] = [
             height: .1,
         },
         position: {
-            x: -1,
+            x: -1.5,
             y: 0.3,
-            z: 1.5
+            z: 4
         }
     },
     {
@@ -103,9 +91,9 @@ const data: dataType[] = [
             height: .1,
         },
         position: {
-            x: 0.57,
+            x: 1.5,
             y: 0.9,
-            z: 1.8
+            z: 4.6
         }
     },
     {
@@ -117,7 +105,163 @@ const data: dataType[] = [
         position: {
             x: 1.3,
             y: -0.1,
-            z: 1.65
+            z: 5
+        }
+    },
+    {
+        photo: '/photos/img-5.webp',
+        dimension: {
+            width: .1,
+            height: .15,
+        },
+        position: {
+            x: .9,
+            y: 0.5,
+            z: 5.72
+        }
+    },
+    {
+        photo: '/photos/img-2.webp',
+        dimension: {
+            width: .19,
+            height: .1,
+        },
+        position: {
+            x: -1,
+            y: -0.2,
+            z: 6.2
+        }
+    },
+    {
+        photo: '/photos/img-3.webp',
+        dimension: {
+            width: .1,
+            height: .14,
+        },
+        position: {
+            x: 1.4,
+            y: 0.2,
+            z: 7
+        }
+    },
+    {
+        photo: '/photos/img-7.webp',
+        dimension: {
+            width: .1,
+            height: .14,
+        },
+        position: {
+            x: -1.1,
+            y: 0.5,
+            z: 7.6
+        }
+    },
+    {
+        photo: '/photos/img-9.webp',
+        dimension: {
+            width: .16,
+            height: .1,
+        },
+        position: {
+            x: .9,
+            y: 0,
+            z: 8.3
+        }
+    },
+    {
+        photo: 'https://source.unsplash.com/sYJAKW4MakQ',
+        dimension: {
+            width: .16,
+            height: .1,
+        },
+        position: {
+            x: 1.1,
+            y: -0.1,
+            z: 9.5
+        }
+    },
+    {
+        photo: 'https://source.unsplash.com/Fu4tNLYtTxs',
+        dimension: {
+            width: .16,
+            height: .1,
+        },
+        position: {
+            x: -.8,
+            y: 0.3,
+            z: 10.2
+        }
+    },
+    {
+        photo: '/photos/img-4.webp',
+        dimension: {
+            width: .23,
+            height: .1,
+        },
+        position: {
+            x: .8,
+            y: 0.4,
+            z: 11
+        }
+    },
+    {
+        photo: '/photos/img-11.webp',
+        dimension: {
+            width: .23,
+            height: .1,
+        },
+        position: {
+            x: -.75,
+            y: -0.1,
+            z: 11.78
+        }
+    },
+    {
+        photo: '/photos/img-12.webp',
+        dimension: {
+            width: .23,
+            height: .1,
+        },
+        position: {
+            x: 1,
+            y: -0.2,
+            z: 12.45
+        }
+    },
+    {
+        photo: '/photos/img-13.webp',
+        dimension: {
+            width: .23,
+            height: .1,
+        },
+        position: {
+            x: -.65,
+            y: .35,
+            z: 13.4
+        }
+    },
+    {
+        photo: '/photos/img-6.webp',
+        dimension: {
+            width: .1,
+            height: .15,
+        },
+        position: {
+            x: -.4,
+            y: -.2,
+            z: 14
+        }
+    },
+    {
+        photo: '/photos/img-15.webp',
+        dimension: {
+            width: .14,
+            height: .1,
+        },
+        position: {
+            x: .5,
+            y: .2,
+            z: 14.6
         }
     },
 ]

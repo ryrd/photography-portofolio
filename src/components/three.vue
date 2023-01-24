@@ -26,7 +26,7 @@ const prevCoordinate = {
 const pointer = new Vector2()
 const raycaster = new Raycaster()
 
-const gui = new GUI()
+// const gui = new GUI()
 
 const scene = new Scene()
 // scene.background = new TColor(0x555555)
@@ -79,15 +79,15 @@ mirror.position.set(0, -1, 0)
 // gui.add(mirror.position, 'y').min(-3).max(5).step(.001)
 scene.add(mirror)
 
-const pic1 = new TextureLoader().load('/photos/img-5.webp')
-const photoBox1Geo = new PlaneGeometry(.1, .15)
-const photoBox1Mat = new MeshBasicMaterial({map: pic1})
-const photoBox1 = new Mesh(photoBox1Geo, photoBox1Mat)
-photoBox1.position.set(0.633,0.346,-0.877)
-photoBox1.name = 'photo'
-gui.add(photoBox1.position, 'x').min(-1).max(1).step(.001)
-gui.add(photoBox1.position, 'y').min(0).max(1).step(.001)
-gui.add(photoBox1.position, 'z').min(-2).max(2).step(.001)
+// const pic1 = new TextureLoader().load('/photos/img-5.webp')
+// const photoBox1Geo = new PlaneGeometry(.1, .15)
+// const photoBox1Mat = new MeshBasicMaterial({map: pic1})
+// const photoBox1 = new Mesh(photoBox1Geo, photoBox1Mat)
+// photoBox1.position.set(0.633,0.346,-0.877)
+// photoBox1.name = 'photo'
+// gui.add(photoBox1.position, 'x').min(-1).max(1).step(.001)
+// gui.add(photoBox1.position, 'y').min(0).max(1).step(.001)
+// gui.add(photoBox1.position, 'z').min(-2).max(2).step(.001)
 // scene.add(photoBox1)
 
 interface imageType {

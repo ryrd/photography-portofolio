@@ -11,8 +11,17 @@ import text from './components/text.vue';
   </div>
 </template>
 
-<style scoped>
+<style>
+::-webkit-scrollbar{
+    width: 0px;
+}
+
 #down{
-  height: 200vh;
+  height: 320vh;
+}
+@media (max-width:780px) {
+  #down{
+    height: 460vh;
+  }
 }
 </style>
