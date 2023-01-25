@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { onMounted, defineProps, watch } from 'vue';
+import { defineProps, watch } from 'vue';
 import gsap, {Linear} from 'gsap'
 
 const startAnim = defineProps<{startAnim: boolean}>();
-console.log('dari txt', startAnim);
 
 const openingAnim = gsap.timeline({defaults: {opacity: 0.8, duration: .53, ease: Linear.easeNone}})
 

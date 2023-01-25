@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, defineProps, defineEmits } from 'vue';
+import { ref, onMounted, defineEmits } from 'vue';
 import { AmbientLight, TextureLoader, Raycaster, PlaneGeometry, BoxGeometry, DirectionalLight, Mesh, MeshBasicMaterial, PerspectiveCamera, Scene, Vector2, WebGLRenderer } from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
@@ -11,11 +11,6 @@ import gsap, {Power4} from 'gsap'
 // import {GUI} from 'dat.gui'
 
 import data from '../data'
-
-const startAnimEmit = defineEmits<{(e: 'change-start-anim', value: boolean): void}>();
-function changeStartAnim(){
-  startAnimEmit('change-start-anim', true)
-}
 
 const canvasRef = ref()
 
@@ -40,6 +35,11 @@ directionalLight.rotation.set(-1.3,0,0)
 scene.add(directionalLight)
 const ambientLight = new AmbientLight(0x66a5ff, .2)
 scene.add(ambientLight)
+
+const startAnimEmit = defineEmits<{(e: 'change-start-anim', value: boolean): void}>();
+function changeStartAnim(){
+  startAnimEmit('change-start-anim', true)
+}
 
 const loader = new GLTFLoader()
 loader.load('/boy.glb', (gltf: any) => {
@@ -82,7 +82,6 @@ interface imageType {
     z: number,
   }
 }
-
 data.forEach((image: imageType) => {
   const imgUrl = new TextureLoader().load(image.photo)
   const photoBoxGeo = new PlaneGeometry(image.dimension.width, image.dimension.height)
@@ -105,12 +104,14 @@ function animate(){
   requestAnimationFrame(animate)
 }
 
+let portrait: boolean = false
+if (window.matchMedia("(orientation: portrait)").matches) {
+  portrait = true
+}
 onMounted(() => {
   renderer = new WebGLRenderer({canvas: canvasRef.value })
   renderer.setSize(window.innerWidth, window.innerHeight)
   renderer.render(scene, camera)
-
-  // controls = new OrbitControls(camera, renderer.domElement)
 
   const renderScene = new RenderPass(scene, camera)
   composer = new EffectComposer(renderer)
@@ -151,7 +152,7 @@ onMounted(() => {
           ease: Power4.easeOut,
           x : 0,
           y : 0,
-          z : ((document.body.getBoundingClientRect().top)*-0.007)-.18,
+          z : portrait ? ((document.body.getBoundingClientRect().top)*-0.007)-.4 : ((document.body.getBoundingClientRect().top)*-0.007)-.18,
         })
       }
       else{
