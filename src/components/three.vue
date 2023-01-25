@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted} from 'vue';
+import { ref, onMounted } from 'vue';
 import { AmbientLight, DirectionalLightHelper, RectAreaLight, TextureLoader, Raycaster, PlaneGeometry, BackSide,BoxGeometry, CubeCamera, CircleGeometry, Color as TColor, DirectionalLight, Mesh, MeshBasicMaterial, MeshStandardMaterial, PerspectiveCamera, DoubleSide, PointLight, Scene, SphereGeometry, Vector2, WebGLRenderer, Light} from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
@@ -10,7 +10,6 @@ import {EffectComposer} from 'three/examples/jsm/postprocessing/EffectComposer'
 import gsap, {Power4} from 'gsap'
 import {GUI} from 'dat.gui'
 
-import txt from './txt.vue';
 
 import data, {dataType} from '../data'
 
@@ -40,35 +39,26 @@ const directionalLight = new DirectionalLight(0x0071f2, 1)
 directionalLight.position.set(0,1,-5)
 directionalLight.rotation.set(-1.3,0,0)
 scene.add(directionalLight)
-// const helper = new DirectionalLightHelper(directionalLight);
-// gui.add(directionalLight.position, 'z').min(-5).max(5).step(0.1)
-// gui.add(directionalLight.position, 'y').min(-5).max(5).step(0.1)
-// gui.add(directionalLight.position, 'x').min(-5).max(5).step(0.1)
-// gui.add(directionalLight.rotation, 'x').min(-5).max(5).step(0.1)
-// gui.add(directionalLight.rotation, 'y').min(-5).max(5).step(0.1)
-// gui.add(directionalLight.rotation, 'z').min(-5).max(5).step(0.1)
-// scene.add( helper );
 const ambientLight = new AmbientLight(0x66a5ff, .2)
 scene.add(ambientLight)
 
-const loader = new GLTFLoader()
-loader.load('/boy.glb', (gltf: any) => {
-    const obj = gltf.scene
-    obj.position.set(0,-1,-3)
-    obj.rotation.set(0, 80, 0)
+// const loader = new GLTFLoader()
+// loader.load('/boy.glb', (gltf: any) => {
+//     const obj = gltf.scene
+//     obj.position.set(0,-1,-3)
+//     obj.rotation.set(0, 80, 0)
 
-    scene.add(gltf.scene)
-    renderer.render(scene, camera)
+//     scene.add(gltf.scene)
+//     renderer.render(scene, camera)
     
-    animate()
-})
+//     animate()
+// })
 
 const boxLight = new BoxGeometry( 3.4, 4.5, .1 )
 const boxLightMaterial = new MeshBasicMaterial({color: 0x60aaff})
 const lightBox = new Mesh( boxLight, boxLightMaterial )
 lightBox.position.set(0, 1.25, -10.2)
 scene.add(lightBox)
-// gui.add(cube.scale, 'x').min(-10).max(10).step(.1)
 
 const mirrorGeometry = new PlaneGeometry(100, 500)
 const mirror = new Reflector(mirrorGeometry, {
@@ -78,19 +68,7 @@ const mirror = new Reflector(mirrorGeometry, {
 })
 mirror.rotation.set(4.71, 0, 0)
 mirror.position.set(0, -1, 0)
-// gui.add(mirror.position, 'y').min(-3).max(5).step(.001)
 scene.add(mirror)
-
-// const pic1 = new TextureLoader().load('/photos/img-5.webp')
-// const photoBox1Geo = new PlaneGeometry(.1, .15)
-// const photoBox1Mat = new MeshBasicMaterial({map: pic1})
-// const photoBox1 = new Mesh(photoBox1Geo, photoBox1Mat)
-// photoBox1.position.set(0.633,0.346,-0.877)
-// photoBox1.name = 'photo'
-// gui.add(photoBox1.position, 'x').min(-1).max(1).step(.001)
-// gui.add(photoBox1.position, 'y').min(0).max(1).step(.001)
-// gui.add(photoBox1.position, 'z').min(-2).max(2).step(.001)
-// scene.add(photoBox1)
 
 interface imageType {
   photo: string,
@@ -202,7 +180,6 @@ onMounted(() => {
 <template>
     <div>
         <canvas ref="canvasRef"/>
-        <txt/>
     </div>
 </template>
 
