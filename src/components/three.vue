@@ -42,17 +42,17 @@ scene.add(directionalLight)
 const ambientLight = new AmbientLight(0x66a5ff, .2)
 scene.add(ambientLight)
 
-// const loader = new GLTFLoader()
-// loader.load('/boy.glb', (gltf: any) => {
-//     const obj = gltf.scene
-//     obj.position.set(0,-1,-3)
-//     obj.rotation.set(0, 80, 0)
+const loader = new GLTFLoader()
+loader.load('/boy.glb', (gltf: any) => {
+    const obj = gltf.scene
+    obj.position.set(0,-1,-3)
+    obj.rotation.set(0, 80, 0)
 
-//     scene.add(gltf.scene)
-//     renderer.render(scene, camera)
+    scene.add(gltf.scene)
+    renderer.render(scene, camera)
     
-//     animate()
-// })
+    animate()
+})
 
 const boxLight = new BoxGeometry( 3.4, 4.5, .1 )
 const boxLightMaterial = new MeshBasicMaterial({color: 0x60aaff})
