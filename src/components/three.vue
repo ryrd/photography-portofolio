@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { AmbientLight, DirectionalLightHelper, RectAreaLight, TextureLoader, Raycaster, PlaneGeometry, BackSide,BoxGeometry, CubeCamera, CircleGeometry, Color as TColor, DirectionalLight, Mesh, MeshBasicMaterial, MeshStandardMaterial, PerspectiveCamera, DoubleSide, PointLight, Scene, SphereGeometry, Vector2, WebGLRenderer, Light} from 'three'
+import { ref, onMounted, defineProps, defineEmits } from 'vue';
+import { AmbientLight, TextureLoader, Raycaster, PlaneGeometry, BoxGeometry, DirectionalLight, Mesh, MeshBasicMaterial, PerspectiveCamera, Scene, Vector2, WebGLRenderer } from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import {Reflector} from 'three/examples/jsm/objects/Reflector'
@@ -8,15 +8,18 @@ import {UnrealBloomPass} from 'three/examples/jsm/postprocessing/UnrealBloomPass
 import {RenderPass} from 'three/examples/jsm/postprocessing/RenderPass'
 import {EffectComposer} from 'three/examples/jsm/postprocessing/EffectComposer'
 import gsap, {Power4} from 'gsap'
-import {GUI} from 'dat.gui'
-
+// import {GUI} from 'dat.gui'
 
 import data from '../data'
 
+const startAnimEmit = defineEmits<{(e: 'change-start-anim', value: boolean): void}>();
+function changeStartAnim(){
+  startAnimEmit('change-start-anim', true)
+}
+
 const canvasRef = ref()
 
-// let scene: Scene, camera: PerspectiveCamera, renderer: WebGLRenderer, controls: any, composer: any
-let renderer: WebGLRenderer, composer: any, controls: any
+let renderer: WebGLRenderer, composer: any
 let scrollable = true
 const prevCoordinate = {
   X : 0,
@@ -46,7 +49,8 @@ loader.load('/boy.glb', (gltf: any) => {
 
     scene.add(gltf.scene)
     renderer.render(scene, camera)
-    
+
+    changeStartAnim()
     animate()
 })
 

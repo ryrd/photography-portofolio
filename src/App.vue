@@ -1,12 +1,19 @@
 <script setup lang="ts">
+import {ref} from 'vue'
 import three from './components/three.vue';
 import txt from './components/txt.vue';
+
+const startAnim = ref(false)
+
+function changeStartAnim(value: boolean){
+  startAnim.value = value
+}
 </script>
 
 <template>
   <div>
-    <three/>
-    <txt/>
+    <three @change-start-anim="changeStartAnim" />
+    <txt :startAnim="startAnim"/>
     <div id="down"/>
   </div>
 </template>
