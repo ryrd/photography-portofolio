@@ -16,7 +16,7 @@ watch(startAnim, () => {
             }
             ,{
                 filter : 'blur(0.4px)',
-                opacity : 0.8,
+                opacity : 0.75,
                 delay: .2,
                 duration : .8,
             }
@@ -27,7 +27,7 @@ watch(startAnim, () => {
                 opacity : 0,
             },{
                 filter : 'blur(0.4px)',
-                opacity : 0.8,
+                opacity : 1,
                 delay: .4,
                 duration : .5,
             }, 
@@ -36,7 +36,7 @@ watch(startAnim, () => {
             {
                 opacity : 0,
             },{
-                opacity : .75,
+                opacity : .85,
                 delay: .4,
                 duration : .5,
             }, 
@@ -107,14 +107,26 @@ watch(startAnim, () => {
 
 <style scoped>
 @keyframes flicker {
+    0% { opacity: .75; }
+    20% { opacity: .75; }
+    22% { opacity: .6; }
+    24% { opacity: .85; }
+    26% { opacity: .65; }
+    28% { opacity: .75; }
+    60% { opacity: .75; }
+    62% { opacity: .75; }
+    64% { opacity: .75; }
+    100% { opacity: .75; }
+}
+@keyframes flicker2 {
     0% { opacity: .9; }
     20% { opacity: .9; }
     22% { opacity: .6; }
-    24% { opacity: .75; }
-    26% { opacity: .55; }
+    24% { opacity: .85; }
+    26% { opacity: .65; }
     28% { opacity: .9; }
     60% { opacity: .9; }
-    62% { opacity: .7; }
+    62% { opacity: .75; }
     64% { opacity: .9; }
     100% { opacity: .9; }
 }
@@ -133,13 +145,13 @@ watch(startAnim, () => {
 }
 .porto-text{
     font-weight: 400;
-    animation-name: flicker;
+    animation-name: flicker2;
     animation-duration: 2s;
     animation-delay: 3.7s;
     animation-iteration-count: infinite;
 }
 .indicator-text{
-    animation-name: flicker;
+    animation-name: flicker2;
     animation-duration: 3s;
     animation-delay: 4s;
     animation-iteration-count: infinite;
