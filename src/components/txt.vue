@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { defineProps, watch } from 'vue';
-import gsap, {Linear} from 'gsap'
+import { defineProps, onMounted, ref, watch } from 'vue';
+import gsap, {Linear, Power1} from 'gsap'
 
 const startAnim = defineProps<{startAnim: boolean}>();
 
@@ -61,6 +61,31 @@ watch(startAnim, () => {
         .to('#txt-11', {}, '-=.65')
         .to('#txt-5',  {}, '-=.65')
         .to('#txt-20', {}, '-=.6' )
+})
+
+const scrolled = ref(false)
+watch(scrolled, () => {
+    if (scrolled.value){
+        gsap.to(['.site-heading','.indicator-text'], {
+            filter: 'blur(50px)',
+            opacity: 0,            
+            duration : 1,
+            ease: Power1.easeOut
+        })
+    }
+    else{
+        gsap.to(['.site-heading','.indicator-text'], {
+            filter: 'blur(0px)',
+            opacity: 1,            
+            duration : .6,
+            ease: Power1.easeInOut
+        })
+    }
+})
+onMounted(() => {
+    window.addEventListener('scroll', () => {
+        window.scrollY >= 150 ? scrolled.value = true : scrolled.value = false
+    })
 })
 </script>
 

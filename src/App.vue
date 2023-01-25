@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref} from 'vue'
+import {onMounted, ref} from 'vue'
 import three from './components/three.vue';
 import txt from './components/txt.vue';
 
@@ -8,6 +8,7 @@ const startAnim = ref(false)
 function changeStartAnim(value: boolean){
   startAnim.value = value
 }
+
 </script>
 
 <template>
