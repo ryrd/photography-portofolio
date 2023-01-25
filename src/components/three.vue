@@ -11,7 +11,7 @@ import gsap, {Power4} from 'gsap'
 import {GUI} from 'dat.gui'
 
 
-import data, {dataType} from '../data'
+import data from '../data'
 
 const canvasRef = ref()
 
@@ -27,13 +27,9 @@ const prevCoordinate = {
 const pointer = new Vector2()
 const raycaster = new Raycaster()
 
-// const gui = new GUI()
-
 const scene = new Scene()
-// scene.background = new TColor(0x555555)
 
 const camera = new PerspectiveCamera(63, window.innerWidth/window.innerHeight, .1, 10000)
-// camera.position.set(0,0,0)
 
 const directionalLight = new DirectionalLight(0x0071f2, 1)
 directionalLight.position.set(0,1,-5)

@@ -1,4 +1,4 @@
-export interface dataType {
+interface dataType {
     photo: string;
     dimension: {
         width: number;

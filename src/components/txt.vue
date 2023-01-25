@@ -75,7 +75,7 @@ onMounted(() => {
                 </span>
             </h1>
         </div>
-        <div class="h-[12vh] text-white opacity-80 text-center mb-[5vh] font-orbitron tracking-wide leading-none text-[2.25vw] md:text-[.85vw] flex flex-col justify-center px-[5vw] md:px-[3vw] indicator-text">
+        <div class="h-[12vh] text-white opacity-75 text-center mb-[5vh] font-orbitron tracking-wide leading-none text-[2.25vw] md:text-[.85vw] flex flex-col justify-center px-[5vw] md:px-[3vw] indicator-text">
             <span>scroll down to explore.</span><br/>
             <span>tap on floating photo for full view.</span>
         </div>
@@ -102,12 +102,6 @@ onMounted(() => {
                  0px 0px 70px rgba(0, 140, 255, .6),
                  0px 0px 150px rgba(0, 140, 255, .6);
 }
-.indicator-text{
-    animation-name: flicker;
-    animation-duration: 3s;
-    animation-delay: 4s;
-    animation-iteration-count: infinite;
-}
 .ryrd-text{
     font-weight: 800;
     opacity: .75;
@@ -122,6 +116,12 @@ onMounted(() => {
     animation-name: flicker;
     animation-duration: 2s;
     animation-delay: 3.7s;
+    animation-iteration-count: infinite;
+}
+.indicator-text{
+    animation-name: flicker;
+    animation-duration: 3s;
+    animation-delay: 4s;
     animation-iteration-count: infinite;
 }
 </style>
