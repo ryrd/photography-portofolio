@@ -20,7 +20,7 @@ function changeStartAnim(value: boolean){
 </template>
 
 <style>
-::-webkit-scrollbar{
+/* ::-webkit-scrollbar{
     width: 0px;
 }
 ::-moz-selection {
@@ -28,7 +28,8 @@ function changeStartAnim(value: boolean){
 }
 ::selection {
   background: transparent;
-}
+} */
+
 html, body{
   overflow-x: hidden;
   width: 100vw;

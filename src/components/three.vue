@@ -59,6 +59,7 @@ const boxLight = new BoxGeometry( 3.4, 4.5, .1 )
 const boxLightMaterial = new MeshBasicMaterial({color: 0x60aaff})
 const lightBox = new Mesh( boxLight, boxLightMaterial )
 lightBox.position.set(0, 1.25, -10.2)
+lightBox.name = "lightBox"
 scene.add(lightBox)
 
 const mirrorGeometry = new PlaneGeometry(100, 500)
@@ -93,7 +94,6 @@ data.forEach((image: imageType) => {
   scene.add(photoBox)
 });
 
-
 function animate(){
   renderer.setSize(window.innerWidth, window.innerHeight)
   camera.aspect = window.innerWidth/window.innerHeight
@@ -106,9 +106,8 @@ function animate(){
 }
 
 let portrait: boolean = false
-if (window.matchMedia("(orientation: portrait)").matches) {
-  portrait = true
-}
+if (window.matchMedia("(orientation: portrait)").matches) portrait = true
+
 onMounted(() => {
   renderer = new WebGLRenderer({canvas: canvasRef.value })
   renderer.setSize(window.innerWidth, window.innerHeight)
@@ -130,6 +129,7 @@ onMounted(() => {
     if (scrollable) camera.position.z = top*-0.007
   })
 
+  let clicked = 0, lastClick = 0
   window.addEventListener("mousedown", e => {
     pointer.x = (e.clientX/window.innerWidth)*2-1
     pointer.y = -(e.clientY/window.innerHeight)*2+1
@@ -138,37 +138,56 @@ onMounted(() => {
     const intersect = raycaster.intersectObjects(scene.children)[0] || null
 
     // console.log(intersect.object)
-    if (intersect !== null && intersect.object.name === "photo" ) {
-      scrollable = !scrollable
 
-      if (!scrollable) {
-        prevCoordinate.X = intersect.object.position.x
-        prevCoordinate.Y = intersect.object.position.y
-        prevCoordinate.Z = intersect.object.position.z
-
-        document.body.style.overflowY = 'hidden'
-        
-        gsap.to(intersect.object.position, {
-          duration: 0.3,
-          ease: Power4.easeOut,
-          x : 0,
-          y : 0,
-          z : portrait ? ((document.body.getBoundingClientRect().top)*-0.007)-.4 : ((document.body.getBoundingClientRect().top)*-0.007)-.18,
-        })
+    if(intersect !== null){
+      if (intersect.object.name === "photo" ) {
+        scrollable = !scrollable
+  
+        if (!scrollable) {
+          prevCoordinate.X = intersect.object.position.x
+          prevCoordinate.Y = intersect.object.position.y
+          prevCoordinate.Z = intersect.object.position.z
+  
+          document.body.style.overflowY = 'hidden'
+          
+          gsap.to(intersect.object.position, {
+            duration: 0.3,
+            ease: Power4.easeOut,
+            x : 0,
+            y : 0,
+            z : portrait ? ((document.body.getBoundingClientRect().top)*-0.007)-.4 : ((document.body.getBoundingClientRect().top)*-0.007)-.18,
+          })
+        }
+        else{
+          document.body.style.overflowY = 'scroll'
+  
+          gsap.to(intersect.object.position, {
+            duration: 0.3,
+            ease: Power4.easeInOut,
+            x : prevCoordinate.X,
+            y : prevCoordinate.Y,
+            z : prevCoordinate.Z,
+          })
+          prevCoordinate.X = 0; 
+          prevCoordinate.Y = 0; 
+          prevCoordinate.Z = 0;
+        }
       }
-      else{
-        document.body.style.overflowY = 'scroll'
+      else if(intersect.object.name === "Hoodie" || intersect.object.name === "pant" || intersect.object.name === "man" || intersect.object.name === "leftshoe"){
+        let date = new Date()
+        let time = date.getTime()
+        const time_between_taps = 200
+        if (time-lastClick < time_between_taps) clicked += 1
+        lastClick = time
+        
+        setTimeout(() => {
+          if(time-lastClick === 0) clicked = 0
+        }, 800)
 
-        gsap.to(intersect.object.position, {
-          duration: 0.3,
-          ease: Power4.easeInOut,
-          x : prevCoordinate.X,
-          y : prevCoordinate.Y,
-          z : prevCoordinate.Z,
-        })
-        prevCoordinate.X = 0; 
-        prevCoordinate.Y = 0; 
-        prevCoordinate.Z = 0;
+        if(clicked >= 30){
+          const down = document.querySelector('#down')! as HTMLDivElement
+          down.style.height = '1000vh'
+        }
       }
 
     };
