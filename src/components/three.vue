@@ -42,10 +42,11 @@ function changeStartAnim(){
 }
 
 const loader = new GLTFLoader()
-loader.load('/boy.glb', (gltf: any) => {
+loader.load('/boy.gltf', (gltf: any) => {
     const obj = gltf.scene
     obj.position.set(0,-1,-3)
     obj.rotation.set(0, 80, 0)
+    obj.scale.set(.7,.7,.7)
 
     scene.add(gltf.scene)
     renderer.render(scene, camera)

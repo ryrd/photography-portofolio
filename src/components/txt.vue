@@ -84,7 +84,7 @@ watch(scrolled, () => {
 })
 onMounted(() => {
     window.addEventListener('scroll', () => {
-        window.scrollY >= 150 ? scrolled.value = true : scrolled.value = false
+        window.scrollY >= 100 ? scrolled.value = true : scrolled.value = false
     })
 })
 </script>
@@ -145,12 +145,12 @@ onMounted(() => {
 @keyframes flicker2 {
     0% { opacity: .9; }
     20% { opacity: .9; }
-    22% { opacity: .6; }
+    22% { opacity: .8; }
     24% { opacity: .85; }
-    26% { opacity: .65; }
+    26% { opacity: .8; }
     28% { opacity: .9; }
     60% { opacity: .9; }
-    62% { opacity: .75; }
+    62% { opacity: .8; }
     64% { opacity: .9; }
     100% { opacity: .9; }
 }

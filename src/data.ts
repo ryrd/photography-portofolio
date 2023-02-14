@@ -73,7 +73,7 @@ const data: dataType[] = [
         }
     },
     {
-        photo: 'https://source.unsplash.com/Z13HfI7Bd6s',
+        photo: 'https://source.unsplash.com/m_Nw8nwgbmU',
         dimension: {
             width: .23,
             height: .1,
