@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, defineEmits } from 'vue';
-import { AmbientLight, TextureLoader, Raycaster, PlaneGeometry, BoxGeometry, DirectionalLight, Mesh, MeshBasicMaterial, PerspectiveCamera, Scene, Vector2, WebGLRenderer } from 'three'
+import { Color as TColor, AmbientLight, TextureLoader, Raycaster, PlaneGeometry, BoxGeometry, DirectionalLight, Mesh, MeshBasicMaterial, PerspectiveCamera, Scene, Vector2, WebGLRenderer } from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import {Reflector} from 'three/examples/jsm/objects/Reflector'
@@ -11,6 +11,7 @@ import gsap, {Power4} from 'gsap'
 // import {GUI} from 'dat.gui'
 
 import data from '../data'
+// import man from '../assets/man.gltf'
 
 const canvasRef = ref()
 
@@ -26,6 +27,7 @@ const pointer = new Vector2()
 const raycaster = new Raycaster()
 
 const scene = new Scene()
+// scene.background = new TColor(0x777777)
 
 const camera = new PerspectiveCamera(63, window.innerWidth/window.innerHeight, .1, 10000)
 
@@ -184,9 +186,45 @@ onMounted(() => {
           if(time-lastClick === 0) clicked = 0
         }, 800)
 
-        if(clicked >= 30){
+        if(clicked === 30){
           const down = document.querySelector('#down')! as HTMLDivElement
-          down.style.height = '1000vh'
+          down.style.height = '1200vh'
+
+          const loader2 = new GLTFLoader()
+          loader2.load('/man.gltf', (gltf: any) => {
+              const obj = gltf.scene
+              obj.position.set(-1.1,-.5,30)
+              obj.rotation.set(0, .3, 0)
+
+              scene.add(gltf.scene)
+              // renderer.render(scene, camera)
+              // animate()
+          })
+          
+          const eg1 = new TextureLoader().load('https://i.postimg.cc/QdCRXF2F/m1.jpg')
+          const eg1Geo = new PlaneGeometry(.26, .15)
+          const eg1Mat = new MeshBasicMaterial({map: eg1})
+          const eg1PhotoBox = new Mesh(eg1Geo, eg1Mat)
+          eg1PhotoBox.position.set(-.7,1,30)
+          eg1PhotoBox.name = "photo"
+          scene.add(eg1PhotoBox)
+
+          const eg2 = new TextureLoader().load('https://i.postimg.cc/FF25vf2P/m2.jpg')
+          const eg2Geo = new PlaneGeometry(.24, .12)
+          const eg2Mat = new MeshBasicMaterial({map: eg2})
+          const eg2PhotoBox = new Mesh(eg2Geo, eg2Mat)
+          eg2PhotoBox.position.set(.6,.2,40)
+          eg2PhotoBox.name = "photo"
+          scene.add(eg2PhotoBox)
+
+          const eg3 = new TextureLoader().load('https://i.postimg.cc/506Td1pd/m3.jpg')
+          const eg3Geo = new PlaneGeometry(.24, .12)
+          const eg3Mat = new MeshBasicMaterial({map: eg3})
+          const eg3PhotoBox = new Mesh(eg3Geo, eg3Mat)
+          eg3PhotoBox.position.set(-.45,.15,50)
+          eg3PhotoBox.name = "photo"
+          scene.add(eg3PhotoBox)
+
         }
       }
 
