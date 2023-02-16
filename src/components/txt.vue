@@ -17,7 +17,7 @@ watch(startAnim, () => {
                 filter : 'blur(0.4px)',
                 opacity : 0.75,
                 delay: .2,
-                duration : .8,
+                duration : .6,
             }
         )
         .fromTo('.indicator-text', 
@@ -27,7 +27,6 @@ watch(startAnim, () => {
             },{
                 filter : 'blur(0.4px)',
                 opacity : 1,
-                delay: .4,
                 duration : .5,
             }, 
         '<')
@@ -146,10 +145,10 @@ onMounted(() => {
         </div>
         <div class="absolute bg-black opacity-0 bg-opacity-30 blur-lg bottom-[2vh] md:bottom-[1vh] left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 w-[50vw] md:w-[20vw] h-[8vh] md:h-[10vh] black-layer"/>
 
-        <div class="absolute right-5 bottom-6 md:right-12 md:bottom-10 text-white opacity-0 font-orbitron italic underline decoration-[1.5px] underline-offset-2 tracking-wider text-[2.15vw] md:text-[.75vw] group" id="credit">
-            <span>credit</span>
-            <div class="absolute top-[-400%] md:top-[-330%] w-[18.5vw] right-0 px-2 py-1 border opacity-0 group-hover:opacity-100 origin-bottom-right group-hover:top-[-1000%] md:group-hover:top-[-370%] transition-all ease-out duration-200">
-                3d model by Alexand Maltsev, Pieter Ferreira, FAHAD, WhyBlue, ecophobic, and ItsReynTime from <a href="https://sketchfab.com/" target="_blank" class="underline text-[.15vw] md:text-[.75vw]">sketchfab.com</a>
+        <div class="absolute right-5 bottom-6 md:right-12 md:bottom-10 text-white opacity-0 font-orbitron italic underline decoration-[1.5px] decoration-white/[.7] underline-offset-2 tracking-wider group" id="credit">
+            <span class="text-[2.15vw] md:text-[.65vw]">credit</span>
+            <div class="absolute top-[-220%] md:top-[-330%] w-[22vw] md:w-[18.5vw] right-0 px-1 md:px-2 py-1 text-[1.5vw] md:text-[.65vw] border opacity-0 bg-black bg-opacity-20 group-hover:opacity-100 group-hover:top-[-280%] md:group-hover:top-[-250%] transition-all ease-out duration-200">
+                3d model by Alexand Maltsev, Pieter Ferreira, FAHAD, WhyBlue, ecophobic, and ItsReynTime from sketchfab.com
             </div>
         </div>
     </div>
