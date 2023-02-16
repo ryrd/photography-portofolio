@@ -40,15 +40,24 @@ watch(startAnim, () => {
                 duration : .5,
             }, 
         '<')
+        .fromTo('#credit', 
+            {
+                opacity : 0,
+            },{
+                opacity : .7,
+                delay: .5,
+                duration : .5,
+            }, 
+        '<')
         .to('#txt-1',  {}, '-=.55')
         .to('#txt-13', {}, '-=.7' )
         .to('#txt-6',  {}, '-=.65')
         .to('#txt-3',  {}, '-=.75')
-        .to('#txt-19', {}, '-=1' )
+        .to('#txt-19', {}, '-=1'  )
         .to('#txt-15', {}, '-=.9' )
-        .to('#txt-4',  {}, '-=1' )
+        .to('#txt-4',  {}, '-=1'  )
         .to('#txt-16', {}, '-=.7' )
-        .to('#txt-2',  {}, '-=1' )
+        .to('#txt-2',  {}, '-=1'  )
         .to('#txt-10', {}, '-=.95')
         .to('#txt-8',  {}, '-=.9' )
         .to('#txt-17', {}, '-=.75')
@@ -57,7 +66,7 @@ watch(startAnim, () => {
         .to('#txt-7',  {}, '-=.75')
         .to('#txt-12', {}, '-=.7' )
         .to('#txt-14', {}, '-=.65')
-        .to('#txt-18', {}, '-=.7')
+        .to('#txt-18', {}, '-=.7' )
         .to('#txt-11', {}, '-=.65')
         .to('#txt-5',  {}, '-=.65')
         .to('#txt-20', {}, '-=.6' )
@@ -67,17 +76,27 @@ const scrolled = ref(false)
 watch(scrolled, () => {
     if (scrolled.value){
         gsap.to(['.site-heading','.indicator-text'], {
-            filter: 'blur(50px)',
-            opacity: 0,            
-            duration : 1,
+            filter: 'blur(23px)',
+            opacity: 0,
+            duration : .5,
+            ease: Power1.easeOut
+        })
+        gsap.to(['.black-layer', '#credit'], {
+            opacity: 0,
+            duration : .3,
             ease: Power1.easeOut
         })
     }
     else{
         gsap.to(['.site-heading','.indicator-text'], {
             filter: 'blur(0px)',
-            opacity: 1,            
-            duration : .6,
+            opacity: .9,
+            duration : .4,
+            ease: Power1.easeInOut
+        })
+        gsap.to(['.black-layer', '#credit'], {
+            opacity: .7,
+            duration : .3,
             ease: Power1.easeInOut
         })
     }
@@ -126,6 +145,13 @@ onMounted(() => {
             <span>tap on floating photo for full view.</span>
         </div>
         <div class="absolute bg-black opacity-0 bg-opacity-30 blur-lg bottom-[2vh] md:bottom-[1vh] left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 w-[50vw] md:w-[20vw] h-[8vh] md:h-[10vh] black-layer"/>
+
+        <div class="absolute right-5 bottom-6 md:right-12 md:bottom-10 text-white opacity-0 font-orbitron italic underline decoration-[1.5px] underline-offset-2 tracking-wider text-[2.15vw] md:text-[.75vw] group" id="credit">
+            <span>credit</span>
+            <div class="absolute top-[-400%] md:top-[-330%] w-[18.5vw] right-0 px-2 py-1 border opacity-0 group-hover:opacity-100 origin-bottom-right group-hover:top-[-1000%] md:group-hover:top-[-370%] transition-all ease-out duration-200">
+                3d model by Alexand Maltsev, Pieter Ferreira, FAHAD, WhyBlue, ecophobic, and ItsReynTime from <a href="https://sketchfab.com/" target="_blank" class="underline text-[.15vw] md:text-[.75vw]">sketchfab.com</a>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -175,7 +201,7 @@ onMounted(() => {
     animation-iteration-count: infinite;
 }
 .indicator-text{
-    animation-name: flicker2;
+    /* animation-name: flicker2; */
     animation-duration: 3s;
     animation-delay: 4s;
     animation-iteration-count: infinite;

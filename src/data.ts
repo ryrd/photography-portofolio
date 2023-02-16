@@ -75,7 +75,7 @@ const data: dataType[] = [
     {
         photo: 'https://source.unsplash.com/m_Nw8nwgbmU',
         dimension: {
-            width: .23,
+            width: .2,
             height: .1,
         },
         position: {

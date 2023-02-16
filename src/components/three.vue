@@ -1,17 +1,14 @@
 <script setup lang="ts">
 import { ref, onMounted, defineEmits } from 'vue';
-import { Color as TColor, AmbientLight, TextureLoader, Raycaster, PlaneGeometry, BoxGeometry, DirectionalLight, Mesh, MeshBasicMaterial, PerspectiveCamera, Scene, Vector2, WebGLRenderer } from 'three'
+import { AmbientLight, TextureLoader, Raycaster, PlaneGeometry, BoxGeometry, DirectionalLight, Mesh, MeshBasicMaterial, PerspectiveCamera, Scene, Vector2, WebGLRenderer } from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import {Reflector} from 'three/examples/jsm/objects/Reflector'
 import {UnrealBloomPass} from 'three/examples/jsm/postprocessing/UnrealBloomPass'
 import {RenderPass} from 'three/examples/jsm/postprocessing/RenderPass'
 import {EffectComposer} from 'three/examples/jsm/postprocessing/EffectComposer'
 import gsap, {Power4} from 'gsap'
-// import {GUI} from 'dat.gui'
 
 import data from '../data'
-// import man from '../assets/man.gltf'
 
 const canvasRef = ref()
 
@@ -27,7 +24,6 @@ const pointer = new Vector2()
 const raycaster = new Raycaster()
 
 const scene = new Scene()
-// scene.background = new TColor(0x777777)
 
 const camera = new PerspectiveCamera(63, window.innerWidth/window.innerHeight, .1, 10000)
 
@@ -35,7 +31,7 @@ const directionalLight = new DirectionalLight(0x0071f2, 1)
 directionalLight.position.set(0,1,-5)
 directionalLight.rotation.set(-1.3,0,0)
 scene.add(directionalLight)
-const ambientLight = new AmbientLight(0x66a5ff, .2)
+const ambientLight = new AmbientLight(0x66a5ff, .1)
 scene.add(ambientLight)
 
 const startAnimEmit = defineEmits<{(e: 'change-start-anim', value: boolean): void}>();
@@ -197,34 +193,56 @@ onMounted(() => {
               obj.rotation.set(0, .3, 0)
 
               scene.add(gltf.scene)
-              // renderer.render(scene, camera)
-              // animate()
           })
           
-          const eg1 = new TextureLoader().load('https://i.postimg.cc/QdCRXF2F/m1.jpg')
-          const eg1Geo = new PlaneGeometry(.26, .15)
-          const eg1Mat = new MeshBasicMaterial({map: eg1})
-          const eg1PhotoBox = new Mesh(eg1Geo, eg1Mat)
-          eg1PhotoBox.position.set(-.7,1,30)
-          eg1PhotoBox.name = "photo"
-          scene.add(eg1PhotoBox)
+          const imgs = [
+            {
+              url: 'QdCRXF2F/m1.jpg',
+              dimension: {
+                width: .26,
+                height: .15,
+              },
+              position: {
+                x: -.7,
+                y: 1,
+                z: 30
+              }
+            },
+            {
+              url: 'FF25vf2P/m2.jpg',
+              dimension: {
+                width: .24,
+                height: .12,
+              },
+              position: {
+                x: .9,
+                y: .2,
+                z: 40
+              }
+            },
+            {
+              url: '506Td1pd/m3.jpg',
+              dimension: {
+                width: .24,
+                height: .12,
+              },
+              position: {
+                x: -.45,
+                y: .15,
+                z: 50
+              }
+            },
+          ]
 
-          const eg2 = new TextureLoader().load('https://i.postimg.cc/FF25vf2P/m2.jpg')
-          const eg2Geo = new PlaneGeometry(.24, .12)
-          const eg2Mat = new MeshBasicMaterial({map: eg2})
-          const eg2PhotoBox = new Mesh(eg2Geo, eg2Mat)
-          eg2PhotoBox.position.set(.6,.2,40)
-          eg2PhotoBox.name = "photo"
-          scene.add(eg2PhotoBox)
-
-          const eg3 = new TextureLoader().load('https://i.postimg.cc/506Td1pd/m3.jpg')
-          const eg3Geo = new PlaneGeometry(.24, .12)
-          const eg3Mat = new MeshBasicMaterial({map: eg3})
-          const eg3PhotoBox = new Mesh(eg3Geo, eg3Mat)
-          eg3PhotoBox.position.set(-.45,.15,50)
-          eg3PhotoBox.name = "photo"
-          scene.add(eg3PhotoBox)
-
+          imgs.forEach(img => {
+            const eg = new TextureLoader().load(`https://i.postimg.cc/${img.url}`)
+            const egGeo = new PlaneGeometry(img.dimension.width, img.dimension.height)
+            const egMat = new MeshBasicMaterial({map: eg})
+            const egPhotoBox = new Mesh(egGeo, egMat)
+            egPhotoBox.position.set(img.position.x, img.position.y, img.position.z)
+            egPhotoBox.name = "photo"
+            scene.add(egPhotoBox)
+          })
         }
       }
 
