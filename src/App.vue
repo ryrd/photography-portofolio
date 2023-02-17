@@ -2,33 +2,18 @@
 import {onMounted, ref} from 'vue'
 import three from './components/three.vue';
 import txt from './components/txt.vue';
-// const Pace = require('/pace-js')
 
-import { useAnimStore } from './stores/AnimStore'
+const startAnim = ref(false)
 
-const startAnim = useAnimStore()
-
-console.log('preloader', startAnim.preloaderDone);
-
-// Pace.on('done', () => {
-//   const preloader = document.querySelector('#preloader')! as HTMLDivElement
-//   const preloaderText = document.querySelector('#preloader-text')! as HTMLHeadingElement
-  
-//   preloader.style.opacity = '0';
-//   preloaderText.style.filter = 'blur(30px)';
-
-//   startAnim.preloaderDoneSignal()
-
-//   setTimeout(() => {
-//     preloader.style.display = 'none';
-//   }, 800);
-// })
+function changeStartAnim(value: boolean){
+  startAnim.value = value
+}
 </script>
 
 <template>
   <div>
-    <three />
-    <txt/>
+    <three @change-start-anim="changeStartAnim" />
+    <txt :startAnim="startAnim"/>
     <div id="down"/>
   </div>
 </template>
