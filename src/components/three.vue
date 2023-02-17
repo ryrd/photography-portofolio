@@ -7,8 +7,10 @@ import {UnrealBloomPass} from 'three/examples/jsm/postprocessing/UnrealBloomPass
 import {RenderPass} from 'three/examples/jsm/postprocessing/RenderPass'
 import {EffectComposer} from 'three/examples/jsm/postprocessing/EffectComposer'
 import gsap, {Power4} from 'gsap'
-
+import { useAnimStore } from '../stores/AnimStore'
 import data from '../data'
+
+const startAnim = useAnimStore()
 
 const canvasRef = ref()
 
@@ -34,11 +36,6 @@ scene.add(directionalLight)
 const ambientLight = new AmbientLight(0x66a5ff, .1)
 scene.add(ambientLight)
 
-const startAnimEmit = defineEmits<{(e: 'change-start-anim', value: boolean): void}>();
-function changeStartAnim(){
-  startAnimEmit('change-start-anim', true)
-}
-
 const loader = new GLTFLoader()
 loader.load('/boy.gltf', (gltf: any) => {
     const obj = gltf.scene
@@ -49,7 +46,7 @@ loader.load('/boy.gltf', (gltf: any) => {
     scene.add(gltf.scene)
     renderer.render(scene, camera)
 
-    changeStartAnim()
+    startAnim.modelDoneSignal()
     animate()
 })
 

@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import { defineProps, onMounted, ref, watch } from 'vue';
 import gsap, {Linear, Power1} from 'gsap'
+import {useAnimStore} from '../stores/AnimStore'
+const startAnim = useAnimStore()
 
-const startAnim = defineProps<{startAnim: boolean}>();
+// const startAnim = defineProps<{startAnim: boolean}>();
+const StartAnim = {a: 1};
 
+console.log(startAnim);
 const openingAnim = gsap.timeline({defaults: {opacity: 0.8, duration: .53, ease: Linear.easeNone}})
 
-watch(startAnim, () => {
+watch(StartAnim, () => {
     openingAnim
         .fromTo('.ryrd-text', 
             {
