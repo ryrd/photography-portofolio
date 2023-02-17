@@ -6,7 +6,7 @@ import {Reflector} from 'three/examples/jsm/objects/Reflector'
 import {UnrealBloomPass} from 'three/examples/jsm/postprocessing/UnrealBloomPass'
 import {RenderPass} from 'three/examples/jsm/postprocessing/RenderPass'
 import {EffectComposer} from 'three/examples/jsm/postprocessing/EffectComposer'
-import gsap, {Power4, Expo} from 'gsap'
+import gsap, {Expo} from 'gsap'
 import data from '../data'
 
 const canvasRef = ref()

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { defineProps, onMounted, ref, watch } from 'vue';
-import gsap, {Linear, Expo, Power1, Power2, Power3, Power4} from 'gsap'
+import gsap, {Linear, Power1} from 'gsap'
 
 const startAnim = defineProps<{startAnim: boolean}>();
 
@@ -159,9 +159,9 @@ onMounted(() => {
         </div>
         <div class="absolute bg-black opacity-0 bg-opacity-30 blur-lg bottom-[2vh] md:bottom-[1vh] left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 w-[50vw] md:w-[20vw] h-[8vh] md:h-[10vh] black-layer"/>
 
-        <div class="absolute right-5 bottom-6 md:right-12 md:bottom-10 text-white opacity-0 font-orbitron italic underline decoration-[1.5px] decoration-white/[.7] underline-offset-2 tracking-wider group" id="credit">
-            <span class="text-[2.15vw] md:text-[.65vw]">credit</span>
-            <div class="absolute top-[-220%] md:top-[-200%] w-[22vw] md:w-[18.5vw] right-0 px-1 md:px-2 py-1 text-[1.5vw] md:text-[.65vw] border opacity-0 bg-black bg-opacity-20 group-hover:opacity-100 group-hover:top-[-280%] md:group-hover:top-[-250%] transition-all ease-out duration-200">
+        <div class="absolute right-5 bottom-6 md:right-12 md:bottom-10 text-white opacity-0 font-orbitron italic underline decoration-[1.5px] decoration-white/[.7] underline-offset-2 tracking-wider" id="credit">
+            <span class="text-[2.15vw] md:text-[.65vw]" id="credit-short">credit</span>
+            <div class="absolute top-[-220%] md:top-[-200%] w-[22vw] md:w-[18.5vw] right-0 px-1 md:px-2 py-1 text-[1.5vw] md:text-[.65vw] border opacity-0 bg-black bg-opacity-20 transition-all linear duration-400" id="credit-long">
                 3d model by Alexand Maltsev, Pieter Ferreira, FAHAD, WhyBlue, ecophobic, and ItsReynTime from sketchfab.com
             </div>
         </div>
@@ -200,6 +200,17 @@ onMounted(() => {
     animation-duration: 2s;
     animation-delay: 3.7s;
     animation-iteration-count: infinite;
+}
+#credit-long{
+    clip-path: polygon(100% 100%, 100% 100%, 100% 100%, 100% 100%);
+    background-color: white;
+}
+
+#credit:hover #credit-long{
+    opacity: 1;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    background-color: transparent;
+    transform: translateY(-35%);
 }
 
 /* preloader code */
