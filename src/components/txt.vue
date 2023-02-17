@@ -151,7 +151,7 @@ onMounted(() => {
 
         <div class="absolute right-5 bottom-6 md:right-12 md:bottom-10 text-white opacity-0 font-orbitron italic underline decoration-[1.5px] decoration-white/[.7] underline-offset-2 tracking-wider group" id="credit">
             <span class="text-[2.15vw] md:text-[.65vw]">credit</span>
-            <div class="absolute top-[-220%] md:top-[-180%] w-[22vw] md:w-[18.5vw] right-0 px-1 md:px-2 py-1 text-[1.5vw] md:text-[.65vw] border opacity-0 bg-black bg-opacity-20 group-hover:opacity-100 group-hover:top-[-280%] md:group-hover:top-[-200%] 3xl:group-hover:top-[-400%] transition-all ease-out duration-200">
+            <div class="absolute top-[-220%] md:top-[-200%] w-[22vw] md:w-[18.5vw] right-0 px-1 md:px-2 py-1 text-[1.5vw] md:text-[.65vw] border opacity-0 bg-black bg-opacity-20 group-hover:opacity-100 group-hover:top-[-280%] md:group-hover:top-[-250%] transition-all ease-out duration-200">
                 3d model by Alexand Maltsev, Pieter Ferreira, FAHAD, WhyBlue, ecophobic, and ItsReynTime from sketchfab.com
             </div>
         </div>
