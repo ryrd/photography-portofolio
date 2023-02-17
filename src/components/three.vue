@@ -6,7 +6,7 @@ import {Reflector} from 'three/examples/jsm/objects/Reflector'
 import {UnrealBloomPass} from 'three/examples/jsm/postprocessing/UnrealBloomPass'
 import {RenderPass} from 'three/examples/jsm/postprocessing/RenderPass'
 import {EffectComposer} from 'three/examples/jsm/postprocessing/EffectComposer'
-import gsap, {Power4} from 'gsap'
+import gsap, {Power4, Expo} from 'gsap'
 import data from '../data'
 
 const canvasRef = ref()
@@ -148,8 +148,8 @@ onMounted(() => {
           document.body.style.overflowY = 'hidden'
           
           gsap.to(intersect.object.position, {
-            duration: 0.3,
-            ease: Power4.easeOut,
+            duration: .25,
+            ease: Expo.easeOut,
             x : 0,
             y : 0,
             z : portrait ? ((document.body.getBoundingClientRect().top)*-0.007)-.4 : ((document.body.getBoundingClientRect().top)*-0.007)-.18,
@@ -159,8 +159,8 @@ onMounted(() => {
           document.body.style.overflowY = 'scroll'
   
           gsap.to(intersect.object.position, {
-            duration: 0.3,
-            ease: Power4.easeInOut,
+            duration: .2,
+            ease: Expo.easeIn,
             x : prevCoordinate.X,
             y : prevCoordinate.Y,
             z : prevCoordinate.Z,

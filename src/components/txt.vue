@@ -1,15 +1,21 @@
 <script setup lang="ts">
 import { defineProps, onMounted, ref, watch } from 'vue';
-import gsap, {Linear, Power1} from 'gsap'
-import {useAnimStore} from '../stores/AnimStore'
+import gsap, {Linear, Expo, Power1, Power2, Power3, Power4} from 'gsap'
 
 const startAnim = defineProps<{startAnim: boolean}>();
 
-console.log(startAnim);
 const openingAnim = gsap.timeline({defaults: {opacity: 0.8, duration: .53, ease: Linear.easeNone}})
 
 watch(startAnim, () => {
     openingAnim
+        .to('#preloader-text', {
+            filter: 'blur(40px)',
+            duration: .1,
+        })
+        .to('#preloader', {
+            opacity: 0,
+            duration: .3,
+        },'+=.2')
         .fromTo('.ryrd-text', 
             {
                 filter : 'blur(10px)',
@@ -18,10 +24,9 @@ watch(startAnim, () => {
             ,{
                 filter : 'blur(0.4px)',
                 opacity : 0.75,
-                delay: .9,
                 duration : .6,
             }
-        )
+        ,'-=.2')
         .fromTo('.indicator-text', 
             {
                 filter : 'blur(10px)',
@@ -72,6 +77,9 @@ watch(startAnim, () => {
         .to('#txt-5',  {}, '-=.65')
         .to('#txt-20', {}, '-=.6' )
 })
+setTimeout(() => {
+    gsap.set('#preloader', {display: 'none'})
+}, 1100);
 
 const scrolled = ref(false)
 watch(scrolled, () => {
@@ -111,6 +119,10 @@ onMounted(() => {
 
 <template>
     <div class="fixed top-0 left-0 w-screen h-screen bg-transparent z-10 flex flex-col items-center justify-between">
+        <div id="preloader">
+            <h1 id="preloader-text">LOADING</h1>
+        </div>
+
         <div class="h-[30vh] flex justify-center items-center">
             <h1 class="text-white text-center leading-6 md:leading-none site-heading">
                 <span class="font-orbitron opacity-0 text-[7vw] md:text-[2.5vw] ryrd-text">RYRD's</span>
@@ -158,28 +170,16 @@ onMounted(() => {
 
 <style scoped>
 @keyframes flicker {
-    0% { opacity: .75; }
-    20% { opacity: .75; }
-    22% { opacity: .6; }
-    24% { opacity: .85; }
-    26% { opacity: .65; }
-    28% { opacity: .75; }
-    60% { opacity: .75; }
-    62% { opacity: .75; }
-    64% { opacity: .75; }
-    100% { opacity: .75; }
-}
-@keyframes flicker2 {
-    0% { opacity: .9; }
-    20% { opacity: .9; }
-    22% { opacity: .8; }
-    24% { opacity: .85; }
-    26% { opacity: .8; }
-    28% { opacity: .9; }
-    60% { opacity: .9; }
-    62% { opacity: .8; }
-    64% { opacity: .9; }
-    100% { opacity: .9; }
+    0% { opacity: .8; }
+    20% { opacity: .8; }
+    22% { opacity: .7; }
+    24% { opacity: .8; }
+    26% { opacity: .75; }
+    28% { opacity: .8; }
+    76% { opacity: .8; }
+    78% { opacity: .7; }
+    80% { opacity: .8; }
+    100% { opacity: .8; }
 }
 .site-heading{
     text-shadow: 0px 0px 5px rgb(0, 140, 255),
@@ -201,10 +201,49 @@ onMounted(() => {
     animation-delay: 3.7s;
     animation-iteration-count: infinite;
 }
-.indicator-text{
-    /* animation-name: flicker2; */
-    animation-duration: 3s;
-    animation-delay: 4s;
-    animation-iteration-count: infinite;
+
+/* preloader code */
+#preloader{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    position: fixed;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+    top: 0;
+    left: 0;
+	overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    z-index: 110;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: black;
+}
+#preloader-text{
+    color: transparent;
+    position: fixed;
+    font-family: 'orbitron', 'arial';
+    font-weight: 800;
+    letter-spacing: 5px;
+    font-size: 12vh;
+    z-index: 100;
+	color: white;
+	transition : 1s ease-out;
+    animation: flicker 1.7s infinite;
+    filter: blur(.5px);
+    text-shadow: 0px 0px 5px rgb(0, 140, 255),
+                 0px 0px 24px rgb(0, 140, 255),
+                 0px 0px 70px rgba(0, 140, 255, .6),
+                 0px 0px 150px rgba(0, 140, 255, .6);
+}
+
+@media screen and (max-width:630px), (orientation: portrait){
+	#preloader-text{
+		font-size: 5vh;
+		letter-spacing: 3px;
+	}
 }
 </style>
