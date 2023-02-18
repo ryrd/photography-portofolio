@@ -122,7 +122,12 @@ onMounted(() => {
 <template>
     <div class="fixed top-0 left-0 w-screen h-screen bg-transparent z-10 flex flex-col items-center justify-between">
         <div id="preloader">
-            <h1 id="preloader-text">LOADING</h1>
+            <h1 id="preloader-text">
+                <span class=mr-0>LOADING</span>
+                <span class="opacity-0" id="dot-1">.</span>
+                <span class="opacity-0" id="dot-2">.</span>
+                <span class="opacity-0" id="dot-3">.</span>
+            </h1>
         </div>
 
         <div class="h-[30vh] flex justify-center items-center">
@@ -277,6 +282,36 @@ onMounted(() => {
                  0px 0px 24px rgb(0, 140, 255),
                  0px 0px 70px rgba(0, 140, 255, .6),
                  0px 0px 150px rgba(0, 140, 255, .6);
+}
+
+#dot-1{
+    animation: dot 1s infinite;
+}
+@keyframes dot {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    95% { opacity: 1; }
+    100% { opacity: 0; }
+}
+#dot-2{
+    animation: dot2 1s infinite;
+}
+@keyframes dot2 {
+    0% { opacity: 0; }
+    30% { opacity: 0; }
+    70% { opacity: 1; }
+    95% { opacity: 1; }
+    100% { opacity: 0; }
+}
+#dot-3{
+    animation: dot3 1s infinite;
+}
+@keyframes dot3 {
+    0% { opacity: 0; }
+    60% { opacity: 0; }
+    90% { opacity: 1; }
+    95% { opacity: 1; }
+    100% { opacity: 0; }
 }
 
 @media screen and (max-width:630px), (orientation: portrait){
