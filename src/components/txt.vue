@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { defineProps, onMounted, ref, watch } from 'vue';
-import gsap, {Linear, Power1} from 'gsap'
+import gsap, {Linear, Power1, Expo} from 'gsap'
 
 const startAnim = defineProps<{startAnim: boolean}>();
 
@@ -10,7 +10,9 @@ watch(startAnim, () => {
     openingAnim
         .to('#preloader-text', {
             filter: 'blur(40px)',
+            scale: 1.5,
             duration: .1,
+            ease: Expo.easeIn,
         })
         .to('#preloader', {
             opacity: 0,
@@ -125,9 +127,9 @@ onMounted(() => {
 
         <div class="h-[30vh] flex justify-center items-center">
             <h1 class="text-white text-center leading-6 md:leading-none site-heading">
-                <span class="font-orbitron opacity-0 text-[7vw] md:text-[2.5vw] ryrd-text">RYRD's</span>
+                <span class="font-orbitron opacity-0 text-[7vw] portrait:md:text-[5vw] md:text-[2.5vw] ryrd-text">RYRD's</span>
                 <br/>
-                <span class="font-orbitron text-[6vw] md:text-[3vw] tracking-wider opacity-90 porto-text">
+                <span class="font-orbitron text-[6vw] portrait:md:text-[5.5vw] md:text-[3vw] tracking-wider opacity-90 porto-text">
                     <span class="opacity-0" id="txt-1">P</span>
                     <span class="opacity-0" id="txt-2">h</span>
                     <span class="opacity-0" id="txt-3">o</span>
@@ -153,15 +155,15 @@ onMounted(() => {
                 </span>
             </h1>
         </div>
-        <div class="h-[12vh] text-white opacity-0 text-center mb-[5vh] font-orbitron tracking-wide leading-none text-[2.25vw] md:text-[.85vw] flex flex-col justify-center px-[5vw] md:px-[3vw] indicator-text">
+        <div class="h-[12vh] text-white opacity-0 text-center mb-[5vh] portrait:md:mb-[2vh] font-orbitron tracking-wide leading-none text-[2.25vw] portrait:md:text-[1.2vw] md:text-[.85vw] flex flex-col justify-center px-[5vw] md:px-[3vw] indicator-text">
             <span>scroll down to explore.</span><br/>
             <span>tap on floating photo for full view.</span>
         </div>
-        <div class="absolute bg-black opacity-0 bg-opacity-30 blur-lg bottom-[2vh] md:bottom-[1vh] left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 w-[50vw] md:w-[20vw] h-[8vh] md:h-[10vh] black-layer"/>
+        <div class="absolute bg-black opacity-0 bg-opacity-30 blur-lg bottom-[2vh] md:bottom-[1vh] left-1/2 -translate-x-1/2 -translate-y-1/2 portrait:md:-translate-y-0 -z-10 w-[50vw] portrait:md:w-[30vw] md:w-[20vw] h-[8vh] md:h-[10vh] black-layer"/>
 
         <div class="absolute right-5 bottom-6 md:right-12 md:bottom-10 text-white opacity-0 font-orbitron italic underline decoration-[1.5px] decoration-white/[.7] underline-offset-2 tracking-wider" id="credit">
-            <span class="text-[2.15vw] md:text-[.65vw]" id="credit-short">credit</span>
-            <div class="absolute top-[-220%] md:top-[-200%] w-[22vw] md:w-[18.5vw] right-0 px-1 md:px-2 py-1 text-[1.5vw] md:text-[.65vw] border opacity-0 bg-black bg-opacity-20 transition-all linear duration-400" id="credit-long">
+            <span class="text-[2.15vw] portrait:md:text-[1.2vw] md:text-[.65vw]">credit</span>
+            <div class="absolute top-[-220%] md:top-[-200%] w-[22vw] md:w-[18.5vw] right-0 px-1 md:px-2 py-1 text-[1.5vw] portrait:md:text-[1.2vw] md:text-[.65vw] border opacity-0 bg-black bg-opacity-20 transition-all linear duration-400" id="credit-full">
                 3d model by Alexand Maltsev, Pieter Ferreira, FAHAD, WhyBlue, ecophobic, and ItsReynTime from sketchfab.com
             </div>
         </div>
@@ -201,16 +203,42 @@ onMounted(() => {
     animation-delay: 3.7s;
     animation-iteration-count: infinite;
 }
-#credit-long{
+#credit-full{
     clip-path: polygon(100% 100%, 100% 100%, 100% 100%, 100% 100%);
     background-color: white;
 }
 
-#credit:hover #credit-long{
+#credit:hover #credit-full{
     opacity: 1;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-    background-color: transparent;
-    transform: translateY(-35%);
+    background-color: #0000006c;
+    transform: translateY(-18%);
+}
+
+@media (min-width: 650px){
+    #credit:hover #credit-full{
+        transform: translateY(-5%);
+    }
+}
+@media (min-width: 500px) and (max-width: 1000px) and (orientation: portrait){
+    #credit:hover #credit-full{
+        transform: translateY(-45%);
+    }
+}
+@media (min-width: 1300px){
+    #credit:hover #credit-full{
+        transform: translateY(-18%);
+    }
+}
+@media (min-width: 1800px){
+    #credit:hover #credit-full{
+        transform: translateY(-25%);
+    }
+}
+@media (min-width: 2300px){
+    #credit:hover #credit-full{
+        transform: translateY(-49%);
+    }
 }
 
 /* preloader code */
