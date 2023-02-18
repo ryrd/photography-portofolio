@@ -43,7 +43,7 @@ watch(startAnim, () => {
             {
                 opacity : 0,
             },{
-                opacity : .85,
+                opacity : .9,
                 delay: .4,
                 duration : .5,
             }, 
@@ -159,7 +159,7 @@ onMounted(() => {
             <span>scroll down to explore.</span><br/>
             <span>tap on floating photo for full view.</span>
         </div>
-        <div class="absolute bg-black opacity-0 bg-opacity-30 blur-lg bottom-[2vh] md:bottom-[1vh] left-1/2 -translate-x-1/2 -translate-y-1/2 portrait:md:-translate-y-0 -z-10 w-[50vw] portrait:md:w-[30vw] md:w-[20vw] h-[8vh] md:h-[10vh] black-layer"/>
+        <div class="absolute bg-black opacity-0 bg-opacity-40 blur-lg bottom-[2vh] md:bottom-[1vh] left-1/2 -translate-x-1/2 -translate-y-1/2 portrait:md:-translate-y-0 -z-10 w-[50vw] portrait:md:w-[30vw] md:w-[20vw] h-[8vh] md:h-[10vh] black-layer"/>
 
         <div class="absolute right-5 bottom-6 md:right-12 md:bottom-10 text-white opacity-0 font-orbitron italic underline decoration-[1.5px] decoration-white/[.7] underline-offset-2 tracking-wider" id="credit">
             <span class="text-[2.15vw] portrait:md:text-[1.2vw] md:text-[.65vw]">credit</span>

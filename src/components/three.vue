@@ -30,7 +30,7 @@ const directionalLight = new DirectionalLight(0x0071f2, 1)
 directionalLight.position.set(0,1,-5)
 directionalLight.rotation.set(-1.3,0,0)
 scene.add(directionalLight)
-const ambientLight = new AmbientLight(0x66a5ff, .1)
+const ambientLight = new AmbientLight(0x0071f2, .3)
 scene.add(ambientLight)
 
 const startAnimEmit = defineEmits<{(e: 'change-start-anim', value: boolean): void}>();
@@ -52,12 +52,12 @@ loader.load('/boy.gltf', (gltf: any) => {
     animate()
 })
 
-const boxLight = new BoxGeometry( 3.4, 4.5, .1 )
-const boxLightMaterial = new MeshBasicMaterial({color: 0x60aaff})
-const lightBox = new Mesh( boxLight, boxLightMaterial )
-lightBox.position.set(0, 1.25, -10.2)
-lightBox.name = "lightBox"
-scene.add(lightBox)
+const bgPic = new TextureLoader().load('/bg.webp')
+const bgGeo = new BoxGeometry( 28, 12, .1 )
+const bgMaterial = new MeshBasicMaterial({map: bgPic})
+const bg = new Mesh( bgGeo, bgMaterial )
+bg.position.set(0, 4.85, -10.2)
+scene.add(bg)
 
 const mirrorGeometry = new PlaneGeometry(100, 500)
 const mirror = new Reflector(mirrorGeometry, {
@@ -96,8 +96,8 @@ function animate(){
   camera.aspect = window.innerWidth/window.innerHeight
   camera.updateProjectionMatrix()
 
-  // renderer.render(scene, camera)
-  composer.render()
+  renderer.render(scene, camera)
+  // composer.render()
   
   requestAnimationFrame(animate)
 }
