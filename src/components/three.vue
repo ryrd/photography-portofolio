@@ -126,6 +126,20 @@ onMounted(() => {
     if (scrollable) camera.position.z = top*-0.007
   })
 
+  window.addEventListener('mousemove', e => {
+    if (window.innerWidth < 700) return
+
+    let windowHeight = window.innerHeight
+    let windowWidth = window.innerWidth
+    let xValue = e.x
+    let yValue = e.y
+
+    let mousePosX = -((-1+(xValue/windowWidth)*2)/40)
+    let mousePosY = ((1-(yValue/windowHeight)*2)/40)
+
+    camera.rotation.set(mousePosY, mousePosX, 0)
+  })
+
   let clicked = 0, lastClick = 0
   window.addEventListener("mousedown", e => {
     pointer.x = (e.clientX/window.innerWidth)*2-1
@@ -135,7 +149,6 @@ onMounted(() => {
     const intersect = raycaster.intersectObjects(scene.children)[0] || null
 
     // console.log(intersect.object)
-
     if(intersect !== null){
       if (intersect.object.name === "photo" ) {
         scrollable = !scrollable
