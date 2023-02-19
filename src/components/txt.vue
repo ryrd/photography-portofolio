@@ -132,7 +132,7 @@ onMounted(() => {
 
         <div class="h-[30vh] flex justify-center items-center">
             <h1 class="text-white text-center leading-6 md:leading-none site-heading">
-                <span class="font-orbitron opacity-0 text-[7vw] portrait:md:text-[5vw] md:text-[2.5vw] ryrd-text">RYRD's</span>
+                <span class="font-orbitron opacity-0 text-[7vw] portrait:md:text-[5vw] md:text-[2.5vw] ryrd-text">RYRD</span>
                 <br/>
                 <span class="font-orbitron text-[6vw] portrait:md:text-[5.5vw] md:text-[3vw] tracking-wider opacity-90 porto-text">
                     <span class="opacity-0" id="txt-1">P</span>
