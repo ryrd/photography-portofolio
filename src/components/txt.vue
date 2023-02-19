@@ -175,7 +175,7 @@ onMounted(() => {
 
 <style scoped>
 #main-txt-container{
-    height: 100vh;
+    height: 100dvh;
 }
 
 @keyframes flicker {
