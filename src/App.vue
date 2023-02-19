@@ -5,9 +5,7 @@ import txt from './components/txt.vue';
 
 const startAnim = ref(false)
 
-function changeStartAnim(value: boolean){
-  startAnim.value = value
-}
+const changeStartAnim = (value: boolean) => startAnim.value = value
 </script>
 
 <template>

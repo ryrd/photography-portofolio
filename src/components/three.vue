@@ -34,9 +34,7 @@ const ambientLight = new AmbientLight(0x0071f2, .3)
 scene.add(ambientLight)
 
 const startAnimEmit = defineEmits<{(e: 'change-start-anim', value: boolean): void}>();
-function changeStartAnim(){
-  startAnimEmit('change-start-anim', true)
-}
+const changeStartAnim = () => startAnimEmit('change-start-anim', true)
 
 const loader = new GLTFLoader()
 loader.load('/boy.gltf', (gltf: any) => {
@@ -97,7 +95,6 @@ function animate(){
   camera.updateProjectionMatrix()
 
   renderer.render(scene, camera)
-  // composer.render()
   
   requestAnimationFrame(animate)
 }
@@ -109,17 +106,6 @@ onMounted(() => {
   renderer = new WebGLRenderer({canvas: canvasRef.value })
   renderer.setSize(window.innerWidth, window.innerHeight)
   renderer.render(scene, camera)
-
-  const renderScene = new RenderPass(scene, camera)
-  composer = new EffectComposer(renderer)
-  composer.addPass(renderScene)
-  const bloomPass = new UnrealBloomPass(
-    new Vector2(window.innerWidth, window.innerHeight),
-    .65,
-    .5,
-    0
-  )
-  composer.addPass(bloomPass)
 
   window.addEventListener("scroll", () => {
     const top = document.body.getBoundingClientRect().top
