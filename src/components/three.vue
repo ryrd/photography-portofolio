@@ -113,12 +113,6 @@ onMounted(() => {
     if (scrollable) camera.position.z = top*-0.007
   })
 
-  if(window.innerWidth < 600){
-    window.addEventListener("resize", () => {
-      animate()
-    })
-  }
-
   window.addEventListener('mousemove', e => {
     if (window.innerWidth < 700) return
 
