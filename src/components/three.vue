@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, defineEmits } from 'vue';
-import { AmbientLight, TextureLoader, Raycaster, PlaneGeometry, BoxGeometry, DirectionalLight, Mesh, MeshBasicMaterial, PerspectiveCamera, Scene, Vector2, WebGLRenderer } from 'three'
+import { Color as TColor, AmbientLight, TextureLoader, Raycaster, PlaneGeometry, BoxGeometry, DirectionalLight, Mesh, MeshBasicMaterial, PerspectiveCamera, Scene, Vector2, WebGLRenderer } from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import {Reflector} from 'three/examples/jsm/objects/Reflector'
 import {UnrealBloomPass} from 'three/examples/jsm/postprocessing/UnrealBloomPass'
@@ -23,6 +23,7 @@ const pointer = new Vector2()
 const raycaster = new Raycaster()
 
 const scene = new Scene()
+scene.background = new TColor(0x000000)
 
 const camera = new PerspectiveCamera(63, window.innerWidth/window.innerHeight, .1, 10000)
 
@@ -37,18 +38,22 @@ const startAnimEmit = defineEmits<{(e: 'change-start-anim', value: boolean): voi
 const changeStartAnim = () => startAnimEmit('change-start-anim', true)
 
 const loader = new GLTFLoader()
-loader.load('/boy.gltf', (gltf: any) => {
-    const obj = gltf.scene
-    obj.position.set(0,-1,-3)
-    obj.rotation.set(0, 80, 0)
-    obj.scale.set(.7,.7,.7)
-
-    scene.add(gltf.scene)
-    renderer.render(scene, camera)
-
-    changeStartAnim()
-    animate()
-})
+// try{
+  loader.load('/boy.gltf', (gltf: any) => {
+      const obj = gltf.scene
+      obj.position.set(0,-1,-3)
+      obj.rotation.set(0, 80, 0)
+      obj.scale.set(.7,.7,.7)
+  
+      scene.add(gltf.scene)
+      renderer.render(scene, camera)
+  
+      animate()
+      changeStartAnim()
+    })
+  // }
+// finally{
+// }
 
 const bgPic = new TextureLoader().load('/bg.svg')
 const bgGeo = new BoxGeometry( 28, 12, .1 )
@@ -103,7 +108,7 @@ let portrait: boolean = false
 if (window.matchMedia("(orientation: portrait)").matches) portrait = true
 
 onMounted(() => {
-  renderer = new WebGLRenderer({canvas: canvasRef.value })
+  renderer = new WebGLRenderer({canvas: canvasRef.value, antialias: true })
   renderer.setSize(window.innerWidth, window.innerHeight)
   renderer.render(scene, camera)
 

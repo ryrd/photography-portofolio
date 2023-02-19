@@ -30,6 +30,7 @@ const changeStartAnim = (value: boolean) => startAnim.value = value
 html, body{
   overflow-x: hidden;
   width: 100vw;
+  background: black;
 }
 #down{
   height: 400vh;
