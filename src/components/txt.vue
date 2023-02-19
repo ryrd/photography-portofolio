@@ -22,8 +22,8 @@ watch(startAnim, () => {
             {
                 filter : 'blur(10px)',
                 opacity : 0,
-            }
-            ,{
+            },
+            {
                 filter : 'blur(0.4px)',
                 opacity : 0.75,
                 duration : .6,
@@ -33,7 +33,8 @@ watch(startAnim, () => {
             {
                 filter : 'blur(10px)',
                 opacity : 0,
-            },{
+            },
+            {
                 filter : 'blur(0.4px)',
                 opacity : 1,
                 duration : .5,
@@ -42,7 +43,8 @@ watch(startAnim, () => {
         .fromTo('.black-layer', 
             {
                 opacity : 0,
-            },{
+            },
+            {
                 opacity : .9,
                 delay: .4,
                 duration : .5,
@@ -51,7 +53,8 @@ watch(startAnim, () => {
         .fromTo('#credit', 
             {
                 opacity : 0,
-            },{
+            },
+            {
                 opacity : .7,
                 delay: .5,
                 duration : .5,

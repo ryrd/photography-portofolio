@@ -132,7 +132,6 @@ onMounted(() => {
     raycaster.setFromCamera(pointer, camera)
     const intersect = raycaster.intersectObjects(scene.children)[0] || null
 
-    // console.log(intersect.object)
     if(intersect !== null){
       if (intersect.object.name === "photo" ) {
         scrollable = !scrollable
