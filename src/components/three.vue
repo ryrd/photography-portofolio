@@ -3,9 +3,6 @@ import { ref, onMounted, defineEmits } from 'vue';
 import { Color as TColor, AmbientLight, TextureLoader, Raycaster, PlaneGeometry, BoxGeometry, DirectionalLight, Mesh, MeshBasicMaterial, PerspectiveCamera, Scene, Vector2, WebGLRenderer } from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import {Reflector} from 'three/examples/jsm/objects/Reflector'
-import {UnrealBloomPass} from 'three/examples/jsm/postprocessing/UnrealBloomPass'
-import {RenderPass} from 'three/examples/jsm/postprocessing/RenderPass'
-import {EffectComposer} from 'three/examples/jsm/postprocessing/EffectComposer'
 import gsap, {Expo} from 'gsap'
 import data from '../data'
 
