@@ -285,32 +285,33 @@ onMounted(() => {
 }
 
 #dot-1{
-    animation: dot 1s infinite;
+    animation: dot 1.5s infinite;
 }
 @keyframes dot {
     0% { opacity: 0; }
-    50% { opacity: 1; }
-    95% { opacity: 1; }
+    40% { opacity: 0; }
+    60% { opacity: 1; }
+    90% { opacity: 1; }
     100% { opacity: 0; }
 }
 #dot-2{
-    animation: dot2 1s infinite;
+    animation: dot2 1.5s infinite;
 }
 @keyframes dot2 {
     0% { opacity: 0; }
-    30% { opacity: 0; }
+    50% { opacity: 0; }
     70% { opacity: 1; }
-    95% { opacity: 1; }
+    90% { opacity: 1; }
     100% { opacity: 0; }
 }
 #dot-3{
-    animation: dot3 1s infinite;
+    animation: dot3 1.5s infinite;
 }
 @keyframes dot3 {
     0% { opacity: 0; }
     60% { opacity: 0; }
+    80% { opacity: 1; }
     90% { opacity: 1; }
-    95% { opacity: 1; }
     100% { opacity: 0; }
 }
 

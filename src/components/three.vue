@@ -52,7 +52,7 @@ loader.load('/boy.gltf', (gltf: any) => {
     animate()
 })
 
-const bgPic = new TextureLoader().load('/bg.webp')
+const bgPic = new TextureLoader().load('/bg.svg')
 const bgGeo = new BoxGeometry( 28, 12, .1 )
 const bgMaterial = new MeshBasicMaterial({map: bgPic})
 const bg = new Mesh( bgGeo, bgMaterial )
