@@ -78,10 +78,8 @@ watch(startAnim, () => {
         .to('#txt-11', {}, '-=.65')
         .to('#txt-5',  {}, '-=.65')
         .to('#txt-20', {}, '-=.6' )
+        .set('#preloader', {display: 'none'})
 })
-setTimeout(() => {
-    gsap.set('#preloader', {display: 'none'})
-}, 1100);
 
 const scrolled = ref(false)
 watch(scrolled, () => {
@@ -120,7 +118,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="fixed top-0 left-0 w-screen h-screen bg-transparent z-10 flex flex-col items-center justify-between">
+    <div class="fixed top-0 left-0 w-screen bg-transparent z-10 flex flex-col items-center justify-between" id="main-txt-container">
         <div id="preloader">
             <h1 id="preloader-text">
                 <span class=mr-0>LOADING</span>
@@ -176,6 +174,10 @@ onMounted(() => {
 </template>
 
 <style scoped>
+#main-txt-container{
+    height: 100vh;
+}
+
 @keyframes flicker {
     0% { opacity: .8; }
     20% { opacity: .8; }

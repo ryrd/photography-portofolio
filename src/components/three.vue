@@ -38,22 +38,18 @@ const startAnimEmit = defineEmits<{(e: 'change-start-anim', value: boolean): voi
 const changeStartAnim = () => startAnimEmit('change-start-anim', true)
 
 const loader = new GLTFLoader()
-// try{
-  loader.load('/boy.gltf', (gltf: any) => {
-      const obj = gltf.scene
-      obj.position.set(0,-1,-3)
-      obj.rotation.set(0, 80, 0)
-      obj.scale.set(.7,.7,.7)
-  
-      scene.add(gltf.scene)
-      renderer.render(scene, camera)
-  
-      animate()
-      changeStartAnim()
-    })
-  // }
-// finally{
-// }
+loader.load('/boy.gltf', (gltf: any) => {
+    const obj = gltf.scene
+    obj.position.set(0,-1,-3)
+    obj.rotation.set(0, 80, 0)
+    obj.scale.set(.7,.7,.7)
+
+    scene.add(gltf.scene)
+    renderer.render(scene, camera)
+
+    changeStartAnim()
+    animate()
+  })
 
 const bgPic = new TextureLoader().load('/bg.svg')
 const bgGeo = new BoxGeometry( 28, 12, .1 )
