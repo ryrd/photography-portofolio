@@ -148,7 +148,7 @@ onMounted(() => {
                     <span class="opacity-0" id="txt-10">h</span>
                     <span class="opacity-0" id="txt-11">y</span>
                     <span>&nbsp;</span>
-                    <span class="opacity-0" id="txt-12">p</span>
+                    <span class="opacity-0" id="txt-12">P</span>
                     <span class="opacity-0" id="txt-13">o</span>
                     <span class="opacity-0" id="txt-14">r</span>
                     <span class="opacity-0" id="txt-15">t</span>
