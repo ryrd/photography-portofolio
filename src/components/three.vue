@@ -46,6 +46,7 @@ const bgPic = new TextureLoader().load('/bg.svg')
 const bgGeo = new BoxGeometry( 28, 12, .1 )
 const bgMaterial = new MeshBasicMaterial({map: bgPic})
 const bg = new Mesh( bgGeo, bgMaterial )
+bg.name = "bg"
 bg.position.set(0, 4.85, -10.2)
 scene.add(bg)
 
@@ -55,6 +56,7 @@ const mirror = new Reflector(mirrorGeometry, {
   textureHeight : window.innerHeight*window.devicePixelRatio,
   color: 0x808080,
 })
+mirror.name = "mirror"
 mirror.rotation.set(4.71, 0, 0)
 mirror.position.set(0, -1, 0)
 scene.add(mirror)
@@ -101,6 +103,26 @@ const prevCoordinate = {
   Z : 0,
 }
 
+function closeViewedPhoto(){
+  const object = scene.getObjectById(viewedPhotoId)
+  
+  gsap.to(object!.position, {
+    duration: .2,
+    ease: Expo.easeIn,
+    x : prevCoordinate.X,
+    y : prevCoordinate.Y,
+    z : prevCoordinate.Z,
+  })
+  prevCoordinate.X = 0; 
+  prevCoordinate.Y = 0; 
+  prevCoordinate.Z = 0;
+  
+  scrollable = true
+  aPhotoIsViewed = false
+  viewedPhotoId = -1
+  document.body.style.overflowY = 'scroll'
+}
+
 onMounted(() => {
   renderer = new WebGLRenderer({canvas: canvasRef.value, antialias: true })
   renderer.setSize(window.innerWidth, window.innerHeight)
@@ -125,25 +147,6 @@ onMounted(() => {
     camera.rotation.set(mousePosY, mousePosX, 0)
   })
 
-  function closePhotoPreview(intersect: Intersection<Object3D<Event>>){
-    document.body.style.overflowY = 'scroll'
-  
-    gsap.to(intersect.object.position, {
-      duration: .2,
-      ease: Expo.easeIn,
-      x : prevCoordinate.X,
-      y : prevCoordinate.Y,
-      z : prevCoordinate.Z,
-    })
-    prevCoordinate.X = 0; 
-    prevCoordinate.Y = 0; 
-    prevCoordinate.Z = 0;
-
-    scrollable = true
-    aPhotoIsViewed = false
-    viewedPhotoId = -1
-  }
-
   let clicked = 0, lastClick = 0
   window.addEventListener("mousedown", e => {
     pointer.x = (e.clientX/window.innerWidth)*2-1
@@ -152,32 +155,27 @@ onMounted(() => {
     raycaster.setFromCamera(pointer, camera)
     const intersect = raycaster.intersectObjects(scene.children)[0] || null
 
-    if (intersect === null) return
-    
     if (intersect.object.name === "photo") {
       if (viewedPhotoId === -1){
+        document.body.style.overflowY = 'hidden'
         scrollable = false
         aPhotoIsViewed = true
         viewedPhotoId = intersect.object.id
         
-        if (!scrollable) {
-          prevCoordinate.X = intersect.object.position.x
-          prevCoordinate.Y = intersect.object.position.y
-          prevCoordinate.Z = intersect.object.position.z
-  
-          document.body.style.overflowY = 'hidden'
-          
-          gsap.to(intersect.object.position, {
-            duration: .25,
-            ease: Expo.easeOut,
-            x : 0,
-            y : 0,
-            z : portrait ? ((document.body.getBoundingClientRect().top)*-0.007)-.4 : ((document.body.getBoundingClientRect().top)*-0.007)-.18,
-          })
-        }
+        prevCoordinate.X = intersect.object.position.x
+        prevCoordinate.Y = intersect.object.position.y
+        prevCoordinate.Z = intersect.object.position.z
+
+        gsap.to(intersect.object.position, {
+          duration: .25,
+          ease: Expo.easeOut,
+          x : 0,
+          y : 0,
+          z : portrait ? ((document.body.getBoundingClientRect().top)*-0.007)-.4 : ((document.body.getBoundingClientRect().top)*-0.007)-.18,
+        })
       }
-      else if (intersect.object.id === viewedPhotoId){
-        closePhotoPreview(intersect)
+      else{
+        closeViewedPhoto()
       }
     }
     else if(intersect.object.name === "Hoodie" || intersect.object.name === "pant" || intersect.object.name === "man" || intersect.object.name === "leftshoe"){
@@ -253,6 +251,10 @@ onMounted(() => {
           scene.add(egPhotoBox)
         })
       }
+    }
+    else{
+      if (viewedPhotoId === -1) return
+      closeViewedPhoto()
     }
 
   })

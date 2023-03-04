@@ -294,8 +294,8 @@ onMounted(() => {
 }
 @keyframes dot {
     0% { opacity: 0; }
-    40% { opacity: 0; }
-    60% { opacity: 1; }
+    5% { opacity: 0; }
+    65% { opacity: 1; }
     90% { opacity: 1; }
     100% { opacity: 0; }
 }
@@ -304,8 +304,8 @@ onMounted(() => {
 }
 @keyframes dot2 {
     0% { opacity: 0; }
-    50% { opacity: 0; }
-    70% { opacity: 1; }
+    25% { opacity: 0; }
+    75% { opacity: 1; }
     90% { opacity: 1; }
     100% { opacity: 0; }
 }
@@ -314,8 +314,8 @@ onMounted(() => {
 }
 @keyframes dot3 {
     0% { opacity: 0; }
-    60% { opacity: 0; }
-    80% { opacity: 1; }
+    35% { opacity: 0; }
+    85% { opacity: 1; }
     90% { opacity: 1; }
     100% { opacity: 0; }
 }
