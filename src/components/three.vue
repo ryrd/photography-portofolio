@@ -95,7 +95,6 @@ function animate(){
 
 let portrait = window.matchMedia("(orientation: portrait)").matches ? true : false,
     scrollable = true,
-    aPhotoIsViewed = false,
     viewedPhotoId = -1
 const prevCoordinate = {
   X : 0,
@@ -118,9 +117,9 @@ function closeViewedPhoto(){
   prevCoordinate.Z = 0;
   
   scrollable = true
-  aPhotoIsViewed = false
   viewedPhotoId = -1
-  document.body.style.overflowY = 'scroll'
+  document.querySelector('html')!.style.overflowY = 'scroll'
+  
 }
 
 onMounted(() => {
@@ -157,9 +156,8 @@ onMounted(() => {
 
     if (intersect.object.name === "photo") {
       if (viewedPhotoId === -1){
-        document.body.style.overflowY = 'hidden'
+        document.querySelector('html')!.style.overflowY = 'hidden'
         scrollable = false
-        aPhotoIsViewed = true
         viewedPhotoId = intersect.object.id
         
         prevCoordinate.X = intersect.object.position.x
