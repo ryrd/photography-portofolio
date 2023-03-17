@@ -13,6 +13,7 @@ const changeStartAnim = (value: boolean) => startAnim.value = value
     <three @change-start-anim="changeStartAnim" />
     <txt :startAnim="startAnim"/>
     <div id="down"/>
+    <!-- <button class="opacity-0 absolute" id="randomClick"></button> -->
   </div>
 </template>
 

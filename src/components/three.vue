@@ -10,9 +10,6 @@ const canvasRef = ref()
 
 let renderer: WebGLRenderer, composer: any
 
-const pointer = new Vector2()
-const raycaster = new Raycaster()
-
 const scene = new Scene()
 scene.background = new TColor(0x000000)
 
@@ -118,8 +115,9 @@ function closeViewedPhoto(){
   
   scrollable = true
   viewedPhotoId = -1
+  const clickAudio = new Audio('/sfx/click.mp3')
+  clickAudio.play()
   document.querySelector('html')!.style.overflowY = 'scroll'
-  
 }
 
 onMounted(() => {
@@ -146,6 +144,8 @@ onMounted(() => {
     camera.rotation.set(mousePosY, mousePosX, 0)
   })
 
+  const pointer = new Vector2()
+  const raycaster = new Raycaster()
   let clicked = 0, lastClick = 0
   window.addEventListener("mousedown", e => {
     pointer.x = (e.clientX/window.innerWidth)*2-1
@@ -155,6 +155,10 @@ onMounted(() => {
     const intersect = raycaster.intersectObjects(scene.children)[0] || null
 
     if (intersect.object.name === "photo") {
+
+    const clickAudio = new Audio('/sfx/click.mp3')
+    clickAudio.play()
+      
       if (viewedPhotoId === -1){
         document.querySelector('html')!.style.overflowY = 'hidden'
         scrollable = false
@@ -192,7 +196,7 @@ onMounted(() => {
         down.style.height = '1200vh'
 
         const loader2 = new GLTFLoader()
-        loader2.load('/man.gltf', (gltf: any) => {
+        loader2.load('/boy2.gltf', (gltf: any) => {
             const obj = gltf.scene
             obj.position.set(-1.1,-.5,30)
             obj.rotation.set(0, .3, 0)
