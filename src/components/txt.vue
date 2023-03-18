@@ -230,7 +230,7 @@ onMounted(() => {
             </div>
         </div>
 
-        <button class="absolute right-[1.2rem] top-7 md:right-10 md:top-10 w-10 h-10" id="audio" @click="playAudio()">
+        <button class="absolute right-5 md:right-10 top-7 md:top-10 w-9 h-9 md:w-10 md:h-10" id="audio" @click="playAudio()">
             <img src="/sfx/sound-2.svg" class="absolute left-1/2 top-1/2 -translate-y-1/2 w-[60%] transition-all duration-200 ease-out delay-100" :class="audioClicked ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-1/2'" alt="audio button">
             <img src="/sfx/sound-1.svg" class="absolute left-1/2 top-1/2 -translate-y-1/2 w-[60%] transition-all duration-200 ease-out scale-90" :class="audioClicked ? 'opacity-100 -translate-x-[10%]' : 'opacity-0 -translate-x-1/2'" alt="audio button">
             <img src="/sfx/speaker.svg" class="absolute left-1/2 top-1/2 -translate-y-1/2 w-[60%] transition-all duration-200 ease-out" :class="audioClicked ? '-translate-x-1/2' : 'translate-x-[5%]'" alt="audio button">
