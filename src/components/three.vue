@@ -116,7 +116,7 @@ function closeViewedPhoto(){
   scrollable = true
   viewedPhotoId = -1
   const clickAudio = new Audio('/sfx/click.mp3')
-  clickAudio.play()
+  if(window.scrollY < 4000) clickAudio.play()
   document.querySelector('html')!.style.overflowY = 'scroll'
 }
 
@@ -157,7 +157,7 @@ onMounted(() => {
     if (intersect.object.name === "photo") {
 
     const clickAudio = new Audio('/sfx/click.mp3')
-    clickAudio.play()
+    if(window.scrollY < 4000) clickAudio.play()
       
       if (viewedPhotoId === -1){
         document.querySelector('html')!.style.overflowY = 'hidden'

@@ -60,6 +60,16 @@ watch(startAnim, () => {
                 duration : .5,
             }, 
         '<')
+        .fromTo('#audio', 
+            {
+                opacity : 0,
+            },
+            {
+                opacity : .7,
+                delay: .5,
+                duration : .5,
+            }, 
+        '<')
         .to('#txt-1',  {}, '-=.55')
         .to('#txt-13', {}, '-=.7' )
         .to('#txt-6',  {}, '-=.65')
@@ -93,7 +103,7 @@ watch(scrolled, () => {
             duration : .5,
             ease: Power1.easeOut
         })
-        gsap.to(['.black-layer', '#credit'], {
+        gsap.to(['.black-layer', '#credit', '#audio'], {
             opacity: 0,
             duration : .3,
             ease: Power1.easeOut
@@ -106,18 +116,51 @@ watch(scrolled, () => {
             duration : .4,
             ease: Power1.easeInOut
         })
-        gsap.to(['.black-layer', '#credit'], {
+        gsap.to(['.black-layer', '#credit', '#audio'], {
             opacity: .7,
             duration : .3,
             ease: Power1.easeInOut
         })
     }
 })
+
+const audioClicked = ref(false)
+const ambientSound = new Audio('/sfx/ambient.mp3')
+const ambientSound2 = new Audio('/sfx/ambient.mp3')
+const playAudio = () => {
+    audioClicked.value = !audioClicked.value
+
+    if(audioClicked.value){
+        ambientSound.loop=true
+        ambientSound.play()
+
+        setTimeout(() => {
+            if(!audioClicked.value) return
+
+            ambientSound2.loop=true
+            ambientSound2.volume = .4
+            ambientSound2.play()
+        }, 5000);
+    }
+    else{
+        ambientSound.pause()
+        ambientSound2.pause()
+    }
+    
+}
+
 onMounted(() => {
     window.addEventListener('scroll', () => {
         window.scrollY >= 100 ? scrolled.value = true : scrolled.value = false
+
+        if(window.scrollY > 4000 && audioClicked.value){
+            ambientSound.pause()
+            ambientSound2.pause()
+            audioClicked.value = false
+        }
     })
 })
+
 </script>
 
 <template>
@@ -173,6 +216,12 @@ onMounted(() => {
                 3d model by Alexand Maltsev, Pieter Ferreira, FAHAD, WhyBlue, ecophobic, and ItsReynTime from sketchfab.com
             </div>
         </div>
+
+        <button class="absolute right-4 top-7 md:right-10 md:top-10 w-10 h-10" id="audio" @click="playAudio()">
+            <img src="/sfx/sound 2.svg" class="absolute left-1/2 top-1/2 -translate-y-1/2 w-[60%] transition-all duration-200 ease-out delay-100" :class="audioClicked ? 'opacity-100 translate-x-[0%]' : 'opacity-0 -translate-x-1/2'" alt="audio button">
+            <img src="/sfx/sound 1.svg" class="absolute left-1/2 top-1/2 -translate-y-1/2 w-[60%] transition-all duration-200 ease-out scale-90" :class="audioClicked ? 'opacity-100 -translate-x-[10%]' : 'opacity-0 -translate-x-1/2'" alt="audio button">
+            <img src="/sfx/speaker.svg" class="absolute left-1/2 top-1/2 -translate-y-1/2 w-[60%] transition-all duration-200 ease-out" :class="audioClicked ? '-translate-x-1/2' : '-translate-x-[20%]'" alt="audio button">
+        </button>
     </div>
 </template>
 
@@ -213,6 +262,10 @@ onMounted(() => {
     animation-delay: 3.7s;
     animation-iteration-count: infinite;
 }
+#audio{
+    filter: drop-shadow(0px 0px 5px rgb(0, 140, 255));
+}
+
 #credit-full{
     clip-path: polygon(100% 100%, 100% 100%, 100% 100%, 100% 100%);
     background-color: white;
