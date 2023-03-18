@@ -154,12 +154,14 @@ const playAudio = () => {
 onMounted(() => {
     window.addEventListener('scroll', () => {
         if(window.scrollY >= 80){
+            if(scrolled.value && window.scrollY < 4000) return 
             scrolled.value = true
             // @ts-ignore
             document.getElementById("audio")!.disabled = true;
         }
         else{
-            scrolled.value = false   
+            if(!scrolled.value && window.scrollY < 4000) return
+            scrolled.value = false
             // @ts-ignore
             document.getElementById("audio")!.disabled = false;
         }
