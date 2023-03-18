@@ -127,7 +127,9 @@ watch(scrolled, () => {
 const audioClicked = ref(false)
 const ambientSound = new Audio('/sfx/ambient.mp3')
 const ambientSound2 = new Audio('/sfx/ambient.mp3')
+const clickAudio = new Audio('/sfx/click.mp3')
 const playAudio = () => {
+    if(window.scrollY < 4000) clickAudio.play()
     audioClicked.value = !audioClicked.value
 
     if(audioClicked.value){
@@ -151,7 +153,16 @@ const playAudio = () => {
 
 onMounted(() => {
     window.addEventListener('scroll', () => {
-        window.scrollY >= 100 ? scrolled.value = true : scrolled.value = false
+        if(window.scrollY >= 80){
+            scrolled.value = true
+            // @ts-ignore
+            document.getElementById("audio")!.disabled = true;
+        }
+        else{
+            scrolled.value = false   
+            // @ts-ignore
+            document.getElementById("audio")!.disabled = false;
+        }
 
         if(window.scrollY > 4000 && audioClicked.value){
             ambientSound.pause()
