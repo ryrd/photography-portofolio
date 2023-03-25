@@ -193,7 +193,7 @@ onMounted(() => {
 
       if(clicked === 30){
         const down = document.querySelector('#down')! as HTMLDivElement
-        down.style.height = '1200vh'
+        down.style.height = '1500vh'
 
         const loader2 = new GLTFLoader()
         loader2.load('/boy2.gltf', (gltf: any) => {
@@ -230,15 +230,27 @@ onMounted(() => {
             }
           },
           {
+            url: 'Dy51gLfG/m4.jpg',
+            dimension: {
+              width: .18,
+              height: .18,
+            },
+            position: {
+              x: -.45,
+              y: .15,
+              z: 50
+            }
+          },
+          {
             url: '506Td1pd/m3.jpg',
             dimension: {
               width: .24,
               height: .12,
             },
             position: {
-              x: -.45,
+              x: .45,
               y: .15,
-              z: 50
+              z: 60
             }
           },
         ]
