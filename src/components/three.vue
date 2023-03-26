@@ -230,7 +230,7 @@ onMounted(() => {
             }
           },
           {
-            url: 'Dy51gLfG/m4.jpg',
+            url: 'FsqMvx4L/m4.jpg',
             dimension: {
               width: .18,
               height: .18,
